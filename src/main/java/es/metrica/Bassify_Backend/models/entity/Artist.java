@@ -17,8 +17,8 @@ public class Artist {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long artistId;
 	private String artistSpotifyId;
-	private String name;
-	private List<String> genres;
+	private String artistName;
+	private List<String> artistGenres;
 
 	public Artist() {
 	}

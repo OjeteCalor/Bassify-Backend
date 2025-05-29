@@ -10,13 +10,14 @@ import jakarta.persistence.ManyToOne;
 public class Track {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long songId;
+	private Long trackId;
 	private String trackSpotifyId;
-	private String name;
+	private String trackName;
 	@ManyToOne
-	private Artist artist;
-	private String previewURL;
-	private String imageURL;
+	private Artist trackArtist;
+	private String trackPreviewURL;
+	private String trackImageURL;
+	private boolean trackIsLiked;
 
 	public Track() {
 	}

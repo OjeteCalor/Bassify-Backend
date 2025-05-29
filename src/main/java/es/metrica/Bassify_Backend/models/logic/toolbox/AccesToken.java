@@ -10,19 +10,6 @@ import org.springframework.core.io.support.PropertiesLoaderUtils;
 
 public class AccesToken {
 	public static String getAccessToken() {
-		Properties properties = new Properties();
-		try(InputStream input = AccesToken.class.getClassLoader().getResourceAsStream("accestoken.properties")){
-			properties.load(input);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		String clientId = properties.getProperty("clientId");
-		String clientSecret = properties.getProperty("clientSecret");
-		
-		String credentials = clientId + ":" + clientSecret;
-		String base64Credentials = Base64.getEncoder().encodeToString(credentials.getBytes());
-		HttpHeaders headers = new HttpHeaders();
-		
 	        return null;
 	}
 }

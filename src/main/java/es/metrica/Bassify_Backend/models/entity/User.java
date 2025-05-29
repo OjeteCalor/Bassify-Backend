@@ -14,9 +14,9 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long userId;
-	private String spotifyId;
-	private Set<Track> listenedSongs;
-	private String refreshToken;
+	private String userSpotifyId;
+	private Set<Track> userListenedTracks;
+	private String userRefreshToken;
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private Set<WeightedPreference> userPreferences;
