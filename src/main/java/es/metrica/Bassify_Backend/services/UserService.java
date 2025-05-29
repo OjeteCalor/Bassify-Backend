@@ -4,5 +4,5 @@ import es.metrica.Bassify_Backend.models.dto.UserDTO;
 import es.metrica.Bassify_Backend.models.entity.User;
 
 public interface UserService {
-	public User create(UserDTO userDto);
+	
 }
