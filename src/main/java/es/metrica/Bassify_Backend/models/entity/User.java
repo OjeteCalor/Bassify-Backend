@@ -19,7 +19,7 @@ public class User {
 	private Set<Track> listenedTracks;
 	private String refreshToken;
 	
-	@OneToMany(mappedBy = "preferenceId", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "preferenceUser", fetch = FetchType.LAZY)
 	private Set<WeightedPreference> preferences;
 	
 	
