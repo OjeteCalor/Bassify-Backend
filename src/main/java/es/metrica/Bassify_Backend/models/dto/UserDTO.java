@@ -1,37 +1,33 @@
 package es.metrica.Bassify_Backend.models.dto;
 
-import java.util.Set;
+import java.util.Set; 
 
-import es.metrica.Bassify_Backend.models.entity.Preference;
 import es.metrica.Bassify_Backend.models.entity.Track;
+import es.metrica.Bassify_Backend.models.entity.WeightedPreference;
 
 public class UserDTO {
 	
-	private String id;
-	private Set<Track> listened;
-	private Set<Preference> preferences;
+	private String spotifyId;
+	private Set<Track> listenedTracks;
+	private Set<WeightedPreference> preferences;
 	
-	public UserDTO() {
+	public String getSpotifyId() {
+		return spotifyId;
 	}
-	public String getId() {
-		return id;
+	public void setSpotifyId(String spotifyId) {
+		this.spotifyId = spotifyId;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public Set<Track> getListenedTracks() {
+		return listenedTracks;
 	}
-	public Set<Track> getListened() {
-		return listened;
+	public void setListenedTracks(Set<Track> listenedTracks) {
+		this.listenedTracks = listenedTracks;
 	}
-	public void setListened(Set<Track> listened) {
-		this.listened = listened;
-	}
-	public Set<Preference> getPreferences() {
+	public Set<WeightedPreference> getPreferences() {
 		return preferences;
 	}
-	public void setPreferences(Set<Preference> preferences) {
+	public void setPreferences(Set<WeightedPreference> preferences) {
 		this.preferences = preferences;
 	}
-	
-	
 	
 }
