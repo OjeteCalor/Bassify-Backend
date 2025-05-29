@@ -1,0 +1,74 @@
+openapi: '3.0.3'
+
+info:
+  title: Bassify
+  version: '1.0'
+
+# servers:
+#   - url: https://localhost:0000/api/v1
+
+
+tags:
+  - name: Tracks
+    x-tag-expanded: true
+  - name: Account
+    x-tag-expanded: true
+
+paths:
+
+  ######################### TRACKS #########################
+  /tracks/discover/random/{id_user}:
+    post:
+      description: | 
+        Devuelve las X canciones nuevas para descubrir, 
+        usando el algoritmo aleatorio.
+      tags:
+        - Tracks
+
+      responses:
+        '200':
+            description: OK
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    tracks:
+                      type: array
+                      description: "an array with all the tracks"
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          name:
+                            type: string
+                          author:
+                            type: object
+                            description: "the author of the song"
+                            properties:
+                              id:
+                                type: string
+                              name:
+                                type: string
+                              genres:
+                                type: array
+                                items:
+                                  type: string
+                          previewUrl:
+                            type: string
+                            description: "an URL to a .mp3 file with a preview from this song"
+                          imageUrl:
+                            type: string
+                            description: "an URL to an image file"
+                                
+      parameters: []
+
+      
+        
+
+
+
+
+
+  ######################### ACCOUNT #########################
