@@ -1,39 +1,48 @@
 package es.metrica.Bassify_Backend.models.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Track {
 	@Id
-	@Column(name = "track_id", length = 30)
-	private String id;
-	
-	@Column(name = "song_name")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long songId;
+	private String spotifyId;
 	private String name;
-	
 	@ManyToOne
-	@JoinColumn(name = "artist")
 	private Artist artist;
-	
-	@Column(name = "preview_url")
 	private String previewURL;
-	
-	@Column(name = "image_url")
 	private String imageURL;
 
 	public Track() {
 	}
 
-	public String getId() {
-		return id;
+	public Long getSongId() {
+		return songId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setSongId(Long songId) {
+		this.songId = songId;
+	}
+
+	public String getSpotifyId() {
+		return spotifyId;
+	}
+
+	public void setSpotifyId(String spotifyId) {
+		this.spotifyId = spotifyId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Artist getArtist() {
