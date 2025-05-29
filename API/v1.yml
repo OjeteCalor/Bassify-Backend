@@ -33,18 +33,90 @@ paths:
                 schema:
                   type: object
                   properties:
+                    status:
+                      $ref: '#/components/schemas/status'
+
                     tracks:
                       type: array
                       description: "El array con todas las canciones"
                       items:
                         $ref: '#/components/schemas/Track'
       parameters:
-        - name: id_user
-          in: path
-          required: true
-          description: ID del usuario para el descubrimiento de canciones
-          schema:
-            type: string
+        - $ref: '#/components/parameters/id_user'
+
+
+
+  /tracks/discover/preferences/{id_user}:
+    post:
+      description: | 
+        Devuelve las X canciones nuevas para descubrir, 
+        usando el algoritmo de preferencias.
+      tags:
+        - Tracks
+
+      responses:
+        '200':
+            description: OK
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    status:
+                      $ref: '#/components/schemas/status'
+
+                    tracks:
+                      type: array
+                      description: "El array con todas las canciones"
+                      items:
+                        $ref: '#/components/schemas/Track'
+      parameters:
+        - $ref: '#/components/parameters/id_user'
+
+
+
+  /tracks/discover/listened/{id_user}:
+    post:
+      description: | 
+        Recibir las interacciones del usuario con las canciones recomendadas (like / dislike) 
+      tags:
+        - Tracks
+
+      responses:
+        '200':
+            description: OK
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    status:
+                      $ref: '#/components/schemas/status'
+      parameters:
+        - $ref: '#/components/parameters/id_user'
+
+
+
+  /genres/get:
+    post:
+      description: | 
+        Devolver lista de generos posibles (para las preferencias o el buscador) 
+      tags:
+        - Tracks
+
+      responses:
+        '200':
+            description: OK
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    genres:
+                      type: array
+                      description: Un array con el nombre de todos los generos
+                      items:
+                        type: string
 
 
       
@@ -60,7 +132,29 @@ paths:
 
 
 components:
-  schemas:
+
+  ############### PARAMETERS ###############
+  parameters:
+    id_user:
+      name: id_user
+      in: path
+      required: true
+      description: ID del usuario activo de la sesion
+      schema:
+        type: string
+
+
+
+
+
+  ############### SCHEMAS ###############
+  schemas: 
+
+    status:
+      type: number
+      description: | 
+        El estado interno del servidor de la peticion.
+      default: 200
 
     Track:
       type: object
@@ -90,7 +184,7 @@ components:
           type: string
         name:
           type: string
-          
+
         genres:
           type: array
           items:
