@@ -10,30 +10,30 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "artist")
 public class Artist {
 	@Id
-	@Column(name = "artist_id", length = 30)
-	private String id;
-	
-	@Column(name = "artist_name", length = 100)
+	private Long artistId;
+	private String spotifyId;
 	private String name;
-	
-	@Column(name = "genres")
 	private List<String> genres;
-	
-	@Column(name = "artist_tracks")
-	@OneToMany(mappedBy = "artist", fetch = FetchType.LAZY)
-	private List<Track> tracks;
-	
-	public Artist() {}
+
+	public Artist() {
+	}
+
+	public Long getArtistId() {
+		return artistId;
+	}
+
+	public void setArtistId(Long artistId) {
+		this.artistId = artistId;
+	}
 
 	public String getSpotifyId() {
-		return id;
+		return spotifyId;
 	}
 
 	public void setSpotifyId(String spotifyId) {
-		this.id = spotifyId;
+		this.spotifyId = spotifyId;
 	}
 
 	public String getName() {
@@ -51,6 +51,6 @@ public class Artist {
 	public void setGenres(List<String> genres) {
 		this.genres = genres;
 	}
-	
+
 	
 }
