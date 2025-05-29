@@ -20,7 +20,38 @@ public class Artist {
 	private String artistName;
 	private List<String> artistGenres;
 
-	public Artist() {
+	public Artist() {}
+
+	public Long getArtistId() {
+		return artistId;
+	}
+
+	public void setArtistId(Long artistId) {
+		this.artistId = artistId;
+	}
+
+	public String getArtistSpotifyId() {
+		return artistSpotifyId;
+	}
+
+	public void setArtistSpotifyId(String artistSpotifyId) {
+		this.artistSpotifyId = artistSpotifyId;
+	}
+
+	public String getArtistName() {
+		return artistName;
+	}
+
+	public void setArtistName(String artistName) {
+		this.artistName = artistName;
+	}
+
+	public List<String> getArtistGenres() {
+		return artistGenres;
+	}
+
+	public void setArtistGenres(List<String> artistGenres) {
+		this.artistGenres = artistGenres;
 	}
 
 	

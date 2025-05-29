@@ -19,6 +19,46 @@ public class WeightedPreference {
 	private User preferenceUser;
 	
 	public WeightedPreference() {}
+
+	public Long getPreferenceId() {
+		return preferenceId;
+	}
+
+	public void setPreferenceId(Long preferenceId) {
+		this.preferenceId = preferenceId;
+	}
+
+	public String getGenre() {
+		return genre;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
+
+	public Long getLikedTracksCount() {
+		return likedTracksCount;
+	}
+
+	public void setLikedTracksCount(Long likedTracksCount) {
+		this.likedTracksCount = likedTracksCount;
+	}
+
+	public Long getListenedTracksCount() {
+		return listenedTracksCount;
+	}
+
+	public void setListenedTracksCount(Long listenedTracksCount) {
+		this.listenedTracksCount = listenedTracksCount;
+	}
+
+	public User getPreferenceUser() {
+		return preferenceUser;
+	}
+
+	public void setPreferenceUser(User preferenceUser) {
+		this.preferenceUser = preferenceUser;
+	}
 	
 	
 }
