@@ -4,7 +4,9 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,6 +21,10 @@ public class Artist {
 	
 	@Column(name = "genres")
 	private List<String> genres;
+	
+	@Column(name = "artist_tracks")
+	@OneToMany(mappedBy = "artist", fetch = FetchType.LAZY)
+	private List<Track> tracks;
 	
 	public Artist() {}
 

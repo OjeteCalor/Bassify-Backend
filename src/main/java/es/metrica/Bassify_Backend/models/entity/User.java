@@ -13,8 +13,10 @@ public class User {
 	@Id
 	@Column(name = "user_id", length = 32)
 	private String userId;
+	
 	@Column(name = "listened_songs")
 	private Set<Track> listened;
+	
 	@Column(name = "refresh_token", length = 600)
 	private String refreshToken;
 	

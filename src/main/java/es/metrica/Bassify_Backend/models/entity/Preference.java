@@ -12,6 +12,7 @@ public class Preference {
 	@EmbeddedId
 	@Column(name = "preference_id")
 	private PreferenceId id;
+	
 	@Column(name = "weight")
 	private Long weight;
 	
