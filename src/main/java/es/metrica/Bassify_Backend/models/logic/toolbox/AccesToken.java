@@ -39,7 +39,7 @@ public class AccesToken {
 		headers.set("Authorization","Basic " + base64Credentials);
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 		
-		MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
+		MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
 		body.add("grant_type", "refresh_token");
 		body.add("refresh_token", refreshToken);
 		
