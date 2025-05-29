@@ -1,39 +1,48 @@
 package es.metrica.Bassify_Backend.models.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Track {
 	@Id
-	@Column(name = "track_id", length = 30)
-	private String id;
-	
-	@Column(name = "song_name")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long trackId;
+	private String trackSpotifyId;
 	private String name;
-	
 	@ManyToOne
-	@JoinColumn(name = "artist")
 	private Artist artist;
-	
-	@Column(name = "preview_url")
 	private String previewURL;
-	
-	@Column(name = "image_url")
 	private String imageURL;
+	private boolean isLiked;
 
-	public Track() {
+	public Track() {}
+
+	public Long getTrackId() {
+		return trackId;
 	}
 
-	public String getId() {
-		return id;
+	public void setTrackId(Long trackId) {
+		this.trackId = trackId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public String getTrackSpotifyId() {
+		return trackSpotifyId;
+	}
+
+	public void setTrackSpotifyId(String trackSpotifyId) {
+		this.trackSpotifyId = trackSpotifyId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Artist getArtist() {
@@ -59,5 +68,14 @@ public class Track {
 	public void setImageURL(String imageURL) {
 		this.imageURL = imageURL;
 	}
+
+	public boolean isLiked() {
+		return isLiked;
+	}
+
+	public void setLiked(boolean isLiked) {
+		this.isLiked = isLiked;
+	}
+	
 
 }

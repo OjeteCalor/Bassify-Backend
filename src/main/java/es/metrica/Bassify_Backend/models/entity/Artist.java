@@ -5,52 +5,54 @@ import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "artist")
 public class Artist {
 	@Id
-	@Column(name = "artist_id", length = 30)
-	private String id;
-	
-	@Column(name = "artist_name", length = 100)
-	private String name;
-	
-	@Column(name = "genres")
-	private List<String> genres;
-	
-	@Column(name = "artist_tracks")
-	@OneToMany(mappedBy = "artist", fetch = FetchType.LAZY)
-	private List<Track> tracks;
-	
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long artistId;
+	private String artistSpotifyId;
+	private String artistName;
+	private List<String> artistGenres;
+
 	public Artist() {}
 
-	public String getSpotifyId() {
-		return id;
+	public Long getArtistId() {
+		return artistId;
 	}
 
-	public void setSpotifyId(String spotifyId) {
-		this.id = spotifyId;
+	public void setArtistId(Long artistId) {
+		this.artistId = artistId;
 	}
 
-	public String getName() {
-		return name;
+	public String getArtistSpotifyId() {
+		return artistSpotifyId;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setArtistSpotifyId(String artistSpotifyId) {
+		this.artistSpotifyId = artistSpotifyId;
 	}
 
-	public List<String> getGenres() {
-		return genres;
+	public String getArtistName() {
+		return artistName;
 	}
 
-	public void setGenres(List<String> genres) {
-		this.genres = genres;
+	public void setArtistName(String artistName) {
+		this.artistName = artistName;
 	}
-	
+
+	public List<String> getArtistGenres() {
+		return artistGenres;
+	}
+
+	public void setArtistGenres(List<String> artistGenres) {
+		this.artistGenres = artistGenres;
+	}
+
 	
 }

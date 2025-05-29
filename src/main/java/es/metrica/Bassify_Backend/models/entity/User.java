@@ -2,42 +2,50 @@ package es.metrica.Bassify_Backend.models.entity;
 
 import java.util.Set;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 
 @Entity
 public class User {
 	@Id
-	@Column(name = "user_id", length = 32)
-	private String userId;
-	
-	@Column(name = "listened_songs")
-	private Set<Track> listened;
-	
-	@Column(name = "refresh_token", length = 600)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long userId;
+	private String userSpotifyId;
+	private Set<Track> listenedTracks;
 	private String refreshToken;
 	
-	@Column(name = "user_preferences")
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	private Set<Preference> preferences;
+	@OneToMany(mappedBy = "preferenceUser", fetch = FetchType.LAZY)
+	private Set<WeightedPreference> preferences;
+	
+	public User() {}
 
-	public String getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 
-	public Set<Track> getListened() {
-		return listened;
+	public String getUserSpotifyId() {
+		return userSpotifyId;
 	}
 
-	public void setListened(Set<Track> listened) {
-		this.listened = listened;
+	public void setUserSpotifyId(String userSpotifyId) {
+		this.userSpotifyId = userSpotifyId;
+	}
+
+	public Set<Track> getListenedTracks() {
+		return listenedTracks;
+	}
+
+	public void setListenedTracks(Set<Track> listenedTracks) {
+		this.listenedTracks = listenedTracks;
 	}
 
 	public String getRefreshToken() {
@@ -48,11 +56,11 @@ public class User {
 		this.refreshToken = refreshToken;
 	}
 
-	public Set<Preference> getPreferences() {
+	public Set<WeightedPreference> getPreferences() {
 		return preferences;
 	}
 
-	public void setPreferences(Set<Preference> preferences) {
+	public void setPreferences(Set<WeightedPreference> preferences) {
 		this.preferences = preferences;
 	}
 	
