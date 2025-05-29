@@ -10,31 +10,31 @@ import jakarta.persistence.ManyToOne;
 public class Track {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long songId;
-	private String spotifyId;
+	private Long trackId;
+	private String trackSpotifyId;
 	private String name;
 	@ManyToOne
 	private Artist artist;
 	private String previewURL;
 	private String imageURL;
+	private boolean isLiked;
 
-	public Track() {
+	public Track() {}
+
+	public Long getTrackId() {
+		return trackId;
 	}
 
-	public Long getSongId() {
-		return songId;
+	public void setTrackId(Long trackId) {
+		this.trackId = trackId;
 	}
 
-	public void setSongId(Long songId) {
-		this.songId = songId;
+	public String getTrackSpotifyId() {
+		return trackSpotifyId;
 	}
 
-	public String getSpotifyId() {
-		return spotifyId;
-	}
-
-	public void setSpotifyId(String spotifyId) {
-		this.spotifyId = spotifyId;
+	public void setTrackSpotifyId(String trackSpotifyId) {
+		this.trackSpotifyId = trackSpotifyId;
 	}
 
 	public String getName() {
@@ -68,5 +68,14 @@ public class Track {
 	public void setImageURL(String imageURL) {
 		this.imageURL = imageURL;
 	}
+
+	public boolean isLiked() {
+		return isLiked;
+	}
+
+	public void setLiked(boolean isLiked) {
+		this.isLiked = isLiked;
+	}
+	
 
 }
