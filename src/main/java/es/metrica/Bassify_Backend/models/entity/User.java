@@ -7,6 +7,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -15,11 +16,11 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long userId;
 	private String userSpotifyId;
-	private Set<Track> userListenedTracks;
-	private String userRefreshToken;
+	private Set<Track> listenedTracks;
+	private String refreshToken;
 	
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	private Set<WeightedPreference> userPreferences;
+	@OneToMany(mappedBy = "preferenceId", fetch = FetchType.LAZY)
+	private Set<WeightedPreference> preferences;
 	
 	
 }

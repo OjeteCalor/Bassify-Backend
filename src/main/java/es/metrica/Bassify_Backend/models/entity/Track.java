@@ -12,14 +12,13 @@ public class Track {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long trackId;
 	private String trackSpotifyId;
-	private String trackName;
+	private String name;
 	@ManyToOne
-	private Artist trackArtist;
-	private String trackPreviewURL;
-	private String trackImageURL;
-	private boolean trackIsLiked;
+	private Artist artist;
+	private String previewURL;
+	private String imageURL;
+	private boolean isLiked;
 
-	public Track() {
-	}
+	public Track() {}
 
 }
