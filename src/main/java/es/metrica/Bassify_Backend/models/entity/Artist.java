@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 @Table(name = "artist")
 public class Artist {
 	@Id
-	@Column(name = "id", length = 30)
+	@Column(name = "artist_id", length = 30)
 	private String id;
 	
 	@Column(name = "artist_name", length = 100)
