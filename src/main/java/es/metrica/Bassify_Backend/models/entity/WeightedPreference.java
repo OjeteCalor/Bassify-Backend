@@ -1,13 +1,20 @@
 package es.metrica.Bassify_Backend.models.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class WeightedPreference {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long preferenceId;
 	private String genre;
 	private Long likedSongsCount;
 	private Long listenedSongCount;
+	@ManyToOne
 	private User user;
 	
 	public WeightedPreference() {}
