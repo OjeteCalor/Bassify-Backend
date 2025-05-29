@@ -30,7 +30,7 @@ public class UserController {
 	public ResponseEntity<UserDTO> createPreferences(@RequestBody UserDTO userDto){
 		return userService.createPreference(userDto).get() != null 
 				? new ResponseEntity<>(userDto, HttpStatus.CREATED)
-				: new ResponseEntity<>(HttpStatus.NO_CONTENT);
+				: new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 	
 }
