@@ -4,8 +4,8 @@ info:
   title: Bassify
   version: '1.0'
 
-# servers:
-#   - url: https://localhost:0000/api/v1
+servers:
+  - url: https://localhost:0000/api/v1
 
 
 tags:
@@ -97,7 +97,7 @@ paths:
 
 
 
-  /genres/get:
+  /tracks/genres/get:
     post:
       description: | 
         Devolver lista de generos posibles (para las preferencias o el buscador) 
@@ -117,6 +117,7 @@ paths:
                       description: Un array con el nombre de todos los generos
                       items:
                         type: string
+      parameters: []
 
 
       
@@ -127,6 +128,69 @@ paths:
 
 
   ######################### ACCOUNT #########################
+  /account/login:
+    get:
+      description: | 
+        Recibe los datos del usuario del formulario de inicio de sesion
+      tags:
+        - Account
+
+      responses:
+        '200':
+            description: OK
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    status:
+                      $ref: '#/components/schemas/status'
+                    is_new:
+                      type: boolean
+                      description: Si es true, se redirije a la pagina de 'preferencias iniciales'
+                    created_user:
+                      type: string
+                      nullable: true
+      
+      parameters:
+        - name: "user_spotify_id"
+          in: header
+          required: true
+          description: ID del usuario de spotify tras iniciar sesion
+          schema:
+            type: string
+
+
+  
+  /account/create/preferences:
+    post:
+      description: | 
+        Envia las preferencias de genero del usuario en su primer inicio de sesion
+      tags:
+        - Account
+
+      responses:
+        '200':
+            description: OK
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    status:
+                      $ref: '#/components/schemas/status'
+      
+      parameters:
+        - name: "selected_preferences"
+          in: header
+          required: true
+          description: ID del usuario activo de la sesion
+          schema:
+            type: array
+
+
+
+
 
 
 
