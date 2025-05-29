@@ -12,6 +12,9 @@ public class Track {
 	@Column(name = "track_id", length = 30)
 	private String id;
 	
+	@Column(name = "song_name")
+	private String name;
+	
 	@ManyToOne
 	@JoinColumn(name = "artist")
 	private Artist artist;
