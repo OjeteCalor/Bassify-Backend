@@ -16,6 +16,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long userId;
 	private String userSpotifyId;
+	@OneToMany(fetch = FetchType.LAZY)
 	private Set<Track> listenedTracks;
 	private String refreshToken;
 	
