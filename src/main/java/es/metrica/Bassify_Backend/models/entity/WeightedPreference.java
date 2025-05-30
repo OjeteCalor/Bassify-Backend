@@ -1,10 +1,10 @@
 package es.metrica.Bassify_Backend.models.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -15,8 +15,8 @@ public class WeightedPreference {
 	private String genre;
 	private Long likedTracksCount;
 	private Long listenedTracksCount;
-	@ManyToOne
-	private User preferenceUser;
+	@ManyToOne(fetch = FetchType.LAZY)
+	private User user;
 	
 	public WeightedPreference() {}
 
@@ -52,13 +52,13 @@ public class WeightedPreference {
 		this.listenedTracksCount = listenedTracksCount;
 	}
 
-	public User getPreferenceUser() {
-		return preferenceUser;
+	public User getUser() {
+		return user;
 	}
 
-	public void setPreferenceUser(User preferenceUser) {
-		this.preferenceUser = preferenceUser;
+	public void setUser(User user) {
+		this.user = user;
 	}
-	
+
 	
 }
