@@ -1,15 +1,17 @@
 package es.metrica.Bassify_Backend.repository;
 
-import java.util.HashSet;
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import es.metrica.Bassify_Backend.models.dto.UserDTO;
-
+import es.metrica.Bassify_Backend.models.entity.User;
+ 
 @Repository
-public class UserRepository {
+public interface UserRepository extends JpaRepository<User, Long>{
 
+	public Optional<User> findBySpotifyId(String spotifyId);
+	/*
 	public Optional<UserDTO> findById(String id) {
 		// Verificar si se encuentra en la BBDD, si no se ecnuentra DEBE CREARSE
 		// .save() / .create()
@@ -20,10 +22,6 @@ public class UserRepository {
 		userDto.setPreferences(new HashSet<>());
 		return Optional.of(userDto);
 	}
-	
-	public Optional<UserDTO> save(UserDTO userDto) {
-		// Guardar el userDto en la base de datos
-		return null;
-	}
-	
+
+	*/
 }

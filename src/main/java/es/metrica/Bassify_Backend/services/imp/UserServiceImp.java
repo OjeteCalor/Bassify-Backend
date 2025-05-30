@@ -22,15 +22,24 @@ public class UserServiceImp implements UserService {
 	
 	@Override
 	public ResponseEntity<UserDTO> login(UserDTO userDto) {
-		UserDTO userFoundCreated = userRepository.findById(userDto.getSpotifyId()).orElse(null);
-		return userFoundCreated == null
-				? new ResponseEntity(HttpStatus.OK)
-						: new ResponseEntity<>(userFoundCreated, HttpStatus.CREATED);
+		Optional<User> userFoundCreated = userRepository.findBySpotifyId(userDto.getSpotifyId());
+		return userFoundCreated.isPresent()
+				? new ResponseEntity<>(new UserDTO(userFoundCreated.get()), HttpStatus.CREATED)
+						: new ResponseEntity(HttpStatus.OK);
 	}
 
 	@Override
-	public Optional<UserDTO> createPreference(UserDTO userDto) {
-		return userRepository.save(userDto);
+	public ResponseEntity<UserDTO> createPreference(UserDTO userDto) {
+		Optional<User> userOpt = userRepository.findBySpotifyId(userDto.getSpotifyId());
+		
+		// Si ya está registrado
+		if(userOpt.isPresent()) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		} else {
+			User user = userRepository.save(new User(userDto));
+			return new ResponseEntity<>(new UserDTO(user), HttpStatus.CREATED);
+		}
+		
 	}
 
 }

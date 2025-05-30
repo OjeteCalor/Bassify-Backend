@@ -1,5 +1,8 @@
 package es.metrica.Bassify_Backend.controllers;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import es.metrica.Bassify_Backend.models.dto.UserDTO;
 import es.metrica.Bassify_Backend.services.UserService;
 
@@ -27,10 +29,14 @@ public class UserController {
 	}
 	
 	@PostMapping("/create/preferences")
-	public ResponseEntity<UserDTO> createPreferences(@RequestBody UserDTO userDto){
-		return userService.createPreference(userDto).get() != null 
-				? new ResponseEntity<>(userDto, HttpStatus.CREATED)
-				: new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	public Map<String, Object> createPreferences(@RequestBody UserDTO userDto){
+		// return userService.createPreference(userDto);
+		ResponseEntity<UserDTO> responseDto = userService.createPreference(userDto);
+		Map<String, Object> map = new HashMap<>();
+		map.put("status", responseDto.getStatusCodeValue());
+		map.put("is_new", responseDto.getStatusCode() == HttpStatus.CREATED);
+		map.put("created_user", responseDto.getBody());
+		return map;
 	}
 	
 }
