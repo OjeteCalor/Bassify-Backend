@@ -94,6 +94,27 @@ paths:
                       $ref: '#/components/schemas/status'
       parameters:
         - $ref: '#/components/parameters/id_user'
+        - name: tracks
+          in: header
+          required: true
+          description: Un array con las canciones que ha visto el usuario
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: ID de la canción
+                liked:
+                  type: boolean
+                  description: Indica si le gustó la canción
+                genres:
+                  type: array
+                  description: Lista de géneros asociados a la canción
+                  items:
+                    type: string
+            
 
 
 
