@@ -10,7 +10,7 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class WeightedPreference {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long preferenceId;
 	private String genre;
 	private Long likedTracksCount;
