@@ -2,14 +2,11 @@ package es.metrica.Bassify_Backend.models.entity;
 
 import java.util.List;
 
-import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 
 @Entity
 public class Artist {
@@ -18,6 +15,8 @@ public class Artist {
 	private Long artistId;
 	private String artistSpotifyId;
 	private String artistName;
+	
+	@ElementCollection
 	private List<String> artistGenres;
 
 	public Artist() {}
