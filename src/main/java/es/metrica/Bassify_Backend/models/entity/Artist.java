@@ -11,7 +11,7 @@ import jakarta.persistence.Id;
 @Entity
 public class Artist {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long artistId;
 	private String artistSpotifyId;
 	private String artistName;
