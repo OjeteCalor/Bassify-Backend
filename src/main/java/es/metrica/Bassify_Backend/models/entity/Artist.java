@@ -2,7 +2,6 @@ package es.metrica.Bassify_Backend.models.entity;
 
 import java.util.List;
 
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,7 +15,6 @@ public class Artist {
 	private String artistSpotifyId;
 	private String artistName;
 	
-	@ElementCollection
 	private List<String> artistGenres;
 
 	public Artist() {}

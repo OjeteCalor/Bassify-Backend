@@ -8,6 +8,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -16,11 +18,16 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long userId;
 	private String userSpotifyId;
-	@OneToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(
+	    name = "user_listened_tracks",
+	    joinColumns = @JoinColumn(name = "user_id"),
+	    inverseJoinColumns = @JoinColumn(name = "track_id")
+	)
 	private Set<Track> listenedTracks;
 	private String refreshToken;
 	
-	@OneToMany(mappedBy = "preferenceUser", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private Set<WeightedPreference> preferences;
 	
 	public User() {}
@@ -64,6 +71,6 @@ public class User {
 	public void setPreferences(Set<WeightedPreference> preferences) {
 		this.preferences = preferences;
 	}
-	
+
 	
 }
