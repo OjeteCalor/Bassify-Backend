@@ -2,6 +2,7 @@ package es.metrica.Bassify_Backend.models.entity;
 
 import java.util.Set;
 
+import es.metrica.Bassify_Backend.models.dto.UserDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -17,7 +18,7 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long userId;
-	private String userSpotifyId;
+	private String spotifyId;
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 	    name = "user_listened_tracks",
@@ -32,6 +33,12 @@ public class User {
 	
 	public User() {}
 
+	public User(UserDTO userDto) {
+		this.spotifyId = userDto.getSpotifyId();
+		this.listenedTracks = userDto.getListenedTracks();
+		this.preferences = userDto.getPreferences();
+	}
+
 	public Long getUserId() {
 		return userId;
 	}
@@ -40,12 +47,12 @@ public class User {
 		this.userId = userId;
 	}
 
-	public String getUserSpotifyId() {
-		return userSpotifyId;
+	public String getSpotifyId() {
+		return spotifyId;
 	}
 
-	public void setUserSpotifyId(String userSpotifyId) {
-		this.userSpotifyId = userSpotifyId;
+	public void setSpotifyId(String spotifyId) {
+		this.spotifyId = spotifyId;
 	}
 
 	public Set<Track> getListenedTracks() {
@@ -71,6 +78,5 @@ public class User {
 	public void setPreferences(Set<WeightedPreference> preferences) {
 		this.preferences = preferences;
 	}
-
 	
 }
