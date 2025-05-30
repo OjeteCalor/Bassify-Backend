@@ -1,15 +1,24 @@
 package es.metrica.Bassify_Backend.repository;
 
+import java.util.HashSet;
 import java.util.Optional;
+
+import org.springframework.stereotype.Repository;
 
 import es.metrica.Bassify_Backend.models.dto.UserDTO;
 
+@Repository
 public class UserRepository {
-	
-	public Boolean findById(String id) {
+
+	public Optional<UserDTO> findById(String id) {
 		// Verificar si se encuentra en la BBDD, si no se ecnuentra DEBE CREARSE
 		// .save() / .create()
-		return null;
+		// User user = findById(id);
+		UserDTO userDto = new UserDTO();
+		userDto.setSpotifyId(id);
+		userDto.setListenedTracks(new HashSet<>());
+		userDto.setPreferences(new HashSet<>());
+		return Optional.of(userDto);
 	}
 	
 	public Optional<UserDTO> save(UserDTO userDto) {

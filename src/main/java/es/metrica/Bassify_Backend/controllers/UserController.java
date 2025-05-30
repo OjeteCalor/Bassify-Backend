@@ -12,7 +12,7 @@ import es.metrica.Bassify_Backend.models.dto.UserDTO;
 import es.metrica.Bassify_Backend.services.UserService;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/v1/account")
 public class UserController {
 	
 	private final UserService userService;
@@ -22,7 +22,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/login")
-	public ResponseEntity<Void> login(@RequestBody UserDTO userDto){
+	public ResponseEntity<UserDTO> login(@RequestBody UserDTO userDto){
 		return userService.login(userDto);
 	}
 	
