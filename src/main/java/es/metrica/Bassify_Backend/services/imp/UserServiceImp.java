@@ -4,11 +4,14 @@ import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import es.metrica.Bassify_Backend.models.dto.UserDTO;
+import es.metrica.Bassify_Backend.models.entity.User;
 import es.metrica.Bassify_Backend.repository.UserRepository;
 import es.metrica.Bassify_Backend.services.UserService;
 
+@Service
 public class UserServiceImp implements UserService {
 
 	private UserRepository userRepository;
@@ -18,9 +21,11 @@ public class UserServiceImp implements UserService {
 	}
 	
 	@Override
-	public ResponseEntity<Void> login(UserDTO userDto) {
-		return userRepository.findById(userDto.getSpotifyId()) 
-				? ResponseEntity.ok().build() : ResponseEntity.status(HttpStatus.CREATED).build();
+	public ResponseEntity<UserDTO> login(UserDTO userDto) {
+		UserDTO userFoundCreated = userRepository.findById(userDto.getSpotifyId()).orElse(null);
+		return userFoundCreated == null
+				? new ResponseEntity(HttpStatus.OK)
+						: new ResponseEntity<>(userFoundCreated, HttpStatus.CREATED);
 	}
 
 	@Override
