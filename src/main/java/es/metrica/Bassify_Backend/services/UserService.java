@@ -1,8 +1,10 @@
 package es.metrica.Bassify_Backend.services;
 
+import org.springframework.http.ResponseEntity;
+
 import es.metrica.Bassify_Backend.models.dto.UserDTO;
-import es.metrica.Bassify_Backend.models.entity.User;
 
 public interface UserService {
-	public User create(UserDTO userDto);
+	public ResponseEntity<UserDTO> login(UserDTO userDto);
+	public ResponseEntity<UserDTO> createPreference(UserDTO userDto);
 }
