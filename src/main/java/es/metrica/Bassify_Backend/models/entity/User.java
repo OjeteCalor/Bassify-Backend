@@ -37,6 +37,7 @@ public class User {
 		this.spotifyId = userDto.getSpotifyId();
 		this.listenedTracks = userDto.getListenedTracks();
 		this.preferences = userDto.getPreferences();
+		this.refreshToken = userDto.getRefreshToken();
 	}
 
 	public Long getUserId() {
