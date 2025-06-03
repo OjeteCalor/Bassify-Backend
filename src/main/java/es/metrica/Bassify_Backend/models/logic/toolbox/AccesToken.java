@@ -17,15 +17,17 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import es.metrica.Bassify_Backend.exceptions.BassifyException;
+
 public class AccesToken {
 	
-	public static String getAccessToken(String refreshToken) {
+	public static String getAccessToken(String refreshToken) throws BassifyException {
 		String token = null;
 		Properties p = new Properties();
 		try(InputStream input = AccesToken.class.getClassLoader().getResourceAsStream("accestoken.properties")){
 			p.load(input);
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new BassifyException("Properties file is corrupted or is missing");
 		}
 		
 		String userId = p.getProperty("userId");
