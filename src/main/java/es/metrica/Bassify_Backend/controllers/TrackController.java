@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +20,26 @@ public class TrackController {
 	@Autowired
 	private TrackService trackService;
 	
-	@PostMapping("track/discover/random/{spotifyId}")
-	public ResponseEntity<List<TrackDTO>> discoverRandom(@PathVariable String spotifyId){
+	@PostMapping("/discover/random/{user_id}")
+	public ResponseEntity<List<TrackDTO>> discoverRandom(@PathVariable(name = "user_id") String spotifyId){
 		return trackService.discoverRandom(spotifyId);
+	}
+	
+	@PostMapping("/discover/preferences/{user_id}")
+	public ResponseEntity<List<TrackDTO>> discoverPreferences(@PathVariable(name = "user_id") String spotifyId){
+		// TODO
+		return null;
+	}
+	
+	@PostMapping("/discover/listened/{user_id}")
+	public ResponseEntity<List<TrackDTO>> discoverListened(){
+		// TODO
+		return null;
+	}
+	
+	@GetMapping("genres/get") // ?
+	public ResponseEntity<?> genres(){
+		return null;
 	}
 	
 }

@@ -28,10 +28,29 @@ public class TrackServiceimp implements TrackService {
 		
 		if(user.isPresent()) {
 			// TODO
+			return null;
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 
+	}
+
+	@Override
+	public ResponseEntity<List<TrackDTO>> discoverPreferences(String spotifyId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResponseEntity<List<TrackDTO>> discoverListened(String spotifyId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResponseEntity<List<TrackDTO>> genres() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
