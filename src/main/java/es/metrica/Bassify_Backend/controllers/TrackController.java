@@ -1,8 +1,12 @@
 package es.metrica.Bassify_Backend.controllers;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import es.metrica.Bassify_Backend.models.dto.TrackDTO;
+import es.metrica.Bassify_Backend.models.entity.Genre;
 import es.metrica.Bassify_Backend.services.TrackService;
 
 @Controller
@@ -37,9 +42,12 @@ public class TrackController {
 		return null;
 	}
 	
-	@GetMapping("genres/get") // ?
-	public ResponseEntity<?> genres(){
-		return null;
+	@GetMapping("genres/get")
+	public ResponseEntity<Map<String, Object>> genres(){
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<String> genres = Arrays.stream(Genre.values()).map(g -> g.toString()).toList();
+		map.put("genres", genres);
+		return new ResponseEntity(map, HttpStatus.OK);
 	}
 	
 }
