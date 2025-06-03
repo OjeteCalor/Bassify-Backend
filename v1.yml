@@ -5,7 +5,7 @@ info:
   version: '1.0'
 
 servers:
-  - url: https://localhost:8080/api/v1
+  - url: https://localhost:0000/api/v1
 
 
 tags:
@@ -18,7 +18,7 @@ paths:
 
   ######################### TRACKS #########################
   /tracks/discover/random/{id_user}:
-    post:
+    get:
       description: | 
         Devuelve las X canciones nuevas para descubrir, 
         usando el algoritmo aleatorio.
@@ -33,9 +33,6 @@ paths:
                 schema:
                   type: object
                   properties:
-                    status:
-                      $ref: '#/components/schemas/status'
-
                     tracks:
                       type: array
                       description: "El array con todas las canciones"
@@ -47,7 +44,7 @@ paths:
 
 
   /tracks/discover/preferences/{id_user}:
-    post:
+    get:
       description: | 
         Devuelve las X canciones nuevas para descubrir, 
         usando el algoritmo de preferencias.
@@ -62,9 +59,6 @@ paths:
                 schema:
                   type: object
                   properties:
-                    status:
-                      $ref: '#/components/schemas/status'
-
                     tracks:
                       type: array
                       description: "El array con todas las canciones"
@@ -85,13 +79,7 @@ paths:
       responses:
         '200':
             description: OK
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    status:
-                      $ref: '#/components/schemas/status'
+
       parameters:
         - $ref: '#/components/parameters/id_user'
         - name: tracks
@@ -118,8 +106,8 @@ paths:
 
 
 
-  /tracks/genres/get:
-    post:
+  /tracks/genres:
+    get:
       description: | 
         Devolver lista de generos posibles (para las preferencias o el buscador) 
       tags:
@@ -164,11 +152,16 @@ paths:
                 schema:
                   type: object
                   properties:
-                    status:
-                      $ref: '#/components/schemas/status'
-                    is_new:
-                      type: boolean
-                      description: Si es true, se redirije a la pagina de 'preferencias iniciales'
+                    created_user:
+                      type: string
+                      nullable: true
+        '201':
+            description: OK, se ha creado un nuevo usuario
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
                     created_user:
                       type: string
                       nullable: true
@@ -193,13 +186,6 @@ paths:
       responses:
         '200':
             description: OK
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    status:
-                      $ref: '#/components/schemas/status'
       
       parameters:
         - name: "selected_preferences"
@@ -234,12 +220,6 @@ components:
 
   ############### SCHEMAS ###############
   schemas: 
-
-    status:
-      type: number
-      description: | 
-        El estado interno del servidor de la peticion.
-      default: 200
 
     Track:
       type: object
