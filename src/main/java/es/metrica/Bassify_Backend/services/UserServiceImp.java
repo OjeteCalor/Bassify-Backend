@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import es.metrica.Bassify_Backend.models.dto.UserDTO;
 import es.metrica.Bassify_Backend.models.entity.User;
+import es.metrica.Bassify_Backend.models.logic.toolbox.AccesToken;
+import es.metrica.Bassify_Backend.models.logic.toolbox.TokenPetition;
 import es.metrica.Bassify_Backend.repository.UserRepository;
 
 @Service
@@ -19,6 +21,9 @@ public class UserServiceImp implements UserService {
 	
 	@Override
 	public ResponseEntity<UserDTO> login(UserDTO userDto) {
+		String accessToken = AccesToken.getAccessToken(userDto.getRefreshToken());
+		String spotifyId = TokenPetition.getUserId(accessToken);
+		userDto.setSpotifyId(spotifyId);
 		Optional<User> userOpt = userRepository.findBySpotifyId(userDto.getSpotifyId());
 
 		// Si ya está registrado
