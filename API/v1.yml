@@ -33,9 +33,6 @@ paths:
                 schema:
                   type: object
                   properties:
-                    status:
-                      $ref: '#/components/schemas/status'
-
                     tracks:
                       type: array
                       description: "El array con todas las canciones"
@@ -62,9 +59,6 @@ paths:
                 schema:
                   type: object
                   properties:
-                    status:
-                      $ref: '#/components/schemas/status'
-
                     tracks:
                       type: array
                       description: "El array con todas las canciones"
@@ -85,13 +79,7 @@ paths:
       responses:
         '200':
             description: OK
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    status:
-                      $ref: '#/components/schemas/status'
+
       parameters:
         - $ref: '#/components/parameters/id_user'
         - name: tracks
@@ -164,11 +152,16 @@ paths:
                 schema:
                   type: object
                   properties:
-                    status:
-                      $ref: '#/components/schemas/status'
-                    is_new:
-                      type: boolean
-                      description: Si es true, se redirije a la pagina de 'preferencias iniciales'
+                    created_user:
+                      type: string
+                      nullable: true
+        '201':
+            description: OK, se ha creado un nuevo usuario
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
                     created_user:
                       type: string
                       nullable: true
@@ -193,13 +186,6 @@ paths:
       responses:
         '200':
             description: OK
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    status:
-                      $ref: '#/components/schemas/status'
       
       parameters:
         - name: "selected_preferences"
@@ -234,12 +220,6 @@ components:
 
   ############### SCHEMAS ###############
   schemas: 
-
-    status:
-      type: number
-      description: | 
-        El estado interno del servidor de la peticion.
-      default: 200
 
     Track:
       type: object
