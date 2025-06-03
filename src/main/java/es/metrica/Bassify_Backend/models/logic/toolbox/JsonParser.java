@@ -10,7 +10,7 @@ public class JsonParser {
 		Track track = new Track();
 		
 		track.setName(json.get("name").textValue());
-		track.setSpotifyId(json.get("id").textValue());
+		track.setTrackSpotifyId(json.get("id").textValue());
 		track.setImageURL(json.get("album").withArrayProperty("images").get(0).get("url").asText());
 		track.setArtist(parseArtist(json.get("artist")));
 		
@@ -20,7 +20,7 @@ public class JsonParser {
 	public static Artist parseArtist(JsonNode json) {
 		Artist artist = new Artist();
 		
-		artist.setSpotifyId(json.get("id").textValue());
+		artist.setArtistSpotifyId(json.get("id").textValue());
 		
 		return artist;
 	}

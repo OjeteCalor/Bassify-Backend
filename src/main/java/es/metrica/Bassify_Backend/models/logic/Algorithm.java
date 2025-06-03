@@ -19,8 +19,8 @@ public class Algorithm {
 		for(WeightedPreference pref : preferences) {
 			tracks.addAll(new TrackRequest().getTrackResponse(
 					pref.getGenre(),
-					pref.getLikedSongsCount().intValue() / pref.getListenedSongCount().intValue(),
-					pref.getListenedSongCount().intValue()
+					pref.getLikedTracksCount().intValue() / pref.getListenedTracksCount().intValue(),
+					pref.getListenedTracksCount().intValue()
 				));
 		}
 		return tracks;
