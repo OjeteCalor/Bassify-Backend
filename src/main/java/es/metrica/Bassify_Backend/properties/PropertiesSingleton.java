@@ -8,7 +8,7 @@ import es.metrica.Bassify_Backend.exceptions.BassifyException;
 import es.metrica.Bassify_Backend.models.logic.toolbox.AccesToken;
 
 public class PropertiesSingleton {
-	public static Properties p;
+	protected static Properties p;
 	public static Properties getProperties() throws BassifyException {
 		if(p == null) {
 			p = new Properties();
