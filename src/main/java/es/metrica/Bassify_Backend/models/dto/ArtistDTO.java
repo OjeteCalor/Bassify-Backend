@@ -2,8 +2,7 @@ package es.metrica.Bassify_Backend.models.dto;
 
 import es.metrica.Bassify_Backend.models.entity.Artist;
 
-public class ArtistDTO {
-
+public class Artist{
 	private String artistSpotifyId;
 	private String artistName;
 	
