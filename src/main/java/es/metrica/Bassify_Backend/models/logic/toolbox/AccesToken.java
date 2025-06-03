@@ -1,9 +1,6 @@
 package es.metrica.Bassify_Backend.models.logic.toolbox;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Base64;
-import java.util.Properties;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -18,20 +15,16 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import es.metrica.Bassify_Backend.exceptions.BassifyException;
+import es.metrica.Bassify_Backend.properties.PropertiesSingleton;
 
 public class AccesToken {
 	
 	public static String getAccessToken(String refreshToken) throws BassifyException {
 		String token = null;
-		Properties p = new Properties();
-		try(InputStream input = AccesToken.class.getClassLoader().getResourceAsStream("accestoken.properties")){
-			p.load(input);
-		} catch (IOException e) {
-			throw new BassifyException("Properties file is corrupted or is missing");
-		}
 		
-		String userId = p.getProperty("userId");
-		String userSecret = p.getProperty("userSecret");
+		
+		String userId = PropertiesSingleton.getProperties().getProperty("userId");
+		String userSecret = PropertiesSingleton.getProperties().getProperty("userSecret");
 		
 		String credentials = userId + ":" + userSecret;
 		String base64Credentials = Base64.getEncoder().encodeToString(credentials.getBytes());
