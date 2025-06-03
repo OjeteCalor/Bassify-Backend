@@ -14,12 +14,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import es.metrica.Bassify_Backend.exceptions.BassifyException;
 import es.metrica.Bassify_Backend.properties.PropertiesSingleton;
 
 public class AccesToken {
 	
-	public static String getAccessToken(String refreshToken) throws BassifyException {
+	public static String getAccessToken(String refreshToken) {
 		String token = null;
 		
 		
