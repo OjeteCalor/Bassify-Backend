@@ -19,6 +19,11 @@ public class Artist {
 
 	public Artist() {}
 
+	public Artist(Artist artistDTO) {
+		this.artistSpotifyId = artistDTO.getArtistSpotifyId();
+		this.artistName = artistDTO.getArtistName();
+	}
+	
 	public Long getArtistId() {
 		return artistId;
 	}

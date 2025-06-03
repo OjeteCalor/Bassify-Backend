@@ -14,13 +14,13 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import es.metrica.Bassify_Backend.models.logic.toolbox.treatment.SpotifyTokenResponse;
 
 public class AccesToken {
 	
-	public static String getAccessToken() {
+	public static String getAccessToken(String refreshToken) {
+		String token = null;
 		Properties p = new Properties();
 		try(InputStream input = AccesToken.class.getClassLoader().getResourceAsStream("accestoken.properties")){
 			p.load(input);
@@ -28,7 +28,6 @@ public class AccesToken {
 			e.printStackTrace();
 		}
 		
-		String refreshToken = p.getProperty("refreshToken");
 		String userId = p.getProperty("userId");
 		String userSecret = p.getProperty("userSecret");
 		
@@ -50,12 +49,12 @@ public class AccesToken {
 				request, String.class);
 		
 		ObjectMapper mapper = new ObjectMapper();
-		SpotifyTokenResponse tokenResponse = new SpotifyTokenResponse();
 			try {
-				tokenResponse = mapper.readValue(response.getBody(), SpotifyTokenResponse.class);
+				JsonNode nodes = mapper.readTree(response.getBody());
+				token = nodes.get("access_token").asText();
 			} catch (JsonProcessingException e) {
 				e.printStackTrace();
 			}
-	        return tokenResponse.access_token;
+	        return token;
 	}
 }
