@@ -30,7 +30,8 @@ public class UserServiceImp implements UserService {
 		Optional<User> userOpt = userRepository.findBySpotifyId(userDto.getSpotifyId());
 
 		if(userOpt.isPresent()) {
-			return new ResponseEntity<>(HttpStatus.OK);
+			User user = userRepository.findBySpotifyId(userDto.getSpotifyId()).get();
+			return new ResponseEntity<>(new UserLoginDTO(user), HttpStatus.OK);
 		} else {
 			User user = userRepository.save(new User(userDto));
 			return new ResponseEntity<>(new UserLoginDTO(user), HttpStatus.CREATED);
