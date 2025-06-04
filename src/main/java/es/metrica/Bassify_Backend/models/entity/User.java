@@ -1,6 +1,7 @@
 package es.metrica.Bassify_Backend.models.entity;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import es.metrica.Bassify_Backend.models.dto.UserDTO;
 import jakarta.persistence.Entity;
@@ -35,8 +36,8 @@ public class User {
 
 	public User(UserDTO userDto) {
 		this.spotifyId = userDto.getSpotifyId();
-		this.listenedTracks = userDto.getListenedTracks();
-		this.preferences = userDto.getPreferences();
+		this.listenedTracks = userDto.getListenedTracks().stream().map(a -> new Track(a)).collect(Collectors.toSet());
+		this.preferences = userDto.getPreferences().stream().map(a -> new WeightedPreference(a)).collect(Collectors.toSet());
 		this.refreshToken = userDto.getRefreshToken();
 	}
 

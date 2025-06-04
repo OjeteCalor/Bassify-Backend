@@ -1,7 +1,8 @@
 package es.metrica.Bassify_Backend.models.entity;
 
-import java.util.List; 
+import java.util.List;
 
+import es.metrica.Bassify_Backend.models.dto.ArtistDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,11 +20,12 @@ public class Artist {
 
 	public Artist() {}
 
-	public Artist(Artist artistDTO) {
+	public Artist(ArtistDTO artistDTO) {
 		this.artistSpotifyId = artistDTO.getArtistSpotifyId();
 		this.artistName = artistDTO.getArtistName();
 	}
 	
+
 	public Long getArtistId() {
 		return artistId;
 	}
