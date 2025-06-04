@@ -1,6 +1,7 @@
 package es.metrica.Bassify_Backend.services;
 
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import es.metrica.Bassify_Backend.mappers.PreferenceMapper;
 import es.metrica.Bassify_Backend.mappers.UserMapper;
 import es.metrica.Bassify_Backend.models.dto.UserDTO;
 import es.metrica.Bassify_Backend.models.dto.UserLoginDTO;
+import es.metrica.Bassify_Backend.models.dto.WeightedPreferenceDTO;
 import es.metrica.Bassify_Backend.models.entity.User;
 import es.metrica.Bassify_Backend.models.entity.WeightedPreference;
 import es.metrica.Bassify_Backend.models.logic.toolbox.AccesToken;
@@ -24,6 +27,8 @@ public class UserServiceImp implements UserService {
 	private UserRepository userRepository;
 	
 	private UserMapper userMapper = UserMapper.INSTANCE;
+	
+	private PreferenceMapper preferencemapper = PreferenceMapper.INSTANCE;
 	
 	@Override
 	public ResponseEntity<UserLoginDTO> login(UserDTO userDto) { 
@@ -52,17 +57,14 @@ public class UserServiceImp implements UserService {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	
 		User user = userOpt.get();
-		user.setPreferences(userDto.getPreferences()
-									.stream()
-									.map(a -> {
-										WeightedPreference w = new WeightedPreference(a);
-										w.setUser(user);
-										return w;
-									})
-									.collect(Collectors.toSet()));
+		Set<WeightedPreference> preferencesSet = userDto.getPreferences().stream()
+																		.map(p -> new WeightedPreference(null, p.getGenre(), p.getLikedTracksCount(), p.getListenedTracksCount(), user))
+																		.collect(Collectors.toSet());
+		
+		user.addPreferences(preferencesSet);
 
 		userRepository.save(user);
-		return new ResponseEntity<>(userMapper.userToUserDto(user), HttpStatus.OK); // PETA
+		return new ResponseEntity<>(userMapper.userToUserDto(user), HttpStatus.OK);
 	}
 
 }

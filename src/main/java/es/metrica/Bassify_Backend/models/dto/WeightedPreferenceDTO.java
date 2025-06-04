@@ -1,7 +1,5 @@
 package es.metrica.Bassify_Backend.models.dto;
 
-import es.metrica.Bassify_Backend.models.entity.WeightedPreference;
-
 public class WeightedPreferenceDTO {
 	
 	private String genre;
@@ -10,14 +8,11 @@ public class WeightedPreferenceDTO {
 	private UserDTO userDto;
 	
 	public WeightedPreferenceDTO() {}
-	
-	public WeightedPreferenceDTO(WeightedPreference preference) {
-		this.genre = preference.getGenre();
-		this.likedTracksCount = preference.getLikedTracksCount();
-		this.listenedTracksCount = preference.getListenedTracksCount();
-		userDto = new UserDTO(preference.getUser());
-	}
 
+	public WeightedPreferenceDTO(String genre) {
+		this(genre, 1l, 1l);
+	}
+	
 	public WeightedPreferenceDTO(String genre, Long likedTracksCount, Long listenedTracksCount) {
 		super();
 		this.genre = genre;
@@ -25,8 +20,12 @@ public class WeightedPreferenceDTO {
 		this.listenedTracksCount = listenedTracksCount;
 	}
 	
-	public WeightedPreferenceDTO(String genre) {
-		this(genre, 1l, 1l);
+	public WeightedPreferenceDTO(String genre, Long likedTracksCount, Long listenedTracksCount, UserDTO userDto) {
+		super();
+		this.genre = genre;
+		this.likedTracksCount = likedTracksCount;
+		this.listenedTracksCount = listenedTracksCount;
+		this.userDto = userDto;
 	}
 
 	public String getGenre() {

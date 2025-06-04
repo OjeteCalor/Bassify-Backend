@@ -1,9 +1,9 @@
 package es.metrica.Bassify_Backend.models.entity;
 
+import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-import es.metrica.Bassify_Backend.models.dto.UserDTO;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -29,17 +29,10 @@ public class User {
 	private Set<Track> listenedTracks;
 	private String refreshToken;
 	
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true) // Si se elimina una preferencia del Set, también lo hace en la BBDD
 	private Set<WeightedPreference> preferences;
 	
 	public User() {}
-
-//	public User(UserDTO userDto) {
-//		this.spotifyId = userDto.getSpotifyId();
-//		this.listenedTracks = userDto.getListenedTracks().stream().map(a -> new Track(a)).collect(Collectors.toSet());
-//		this.preferences = userDto.getPreferences().stream().map(a -> new WeightedPreference(a)).collect(Collectors.toSet());
-//		this.refreshToken = userDto.getRefreshToken();
-//	}
 
 	public Long getUserId() {
 		return userId;
@@ -79,6 +72,33 @@ public class User {
 
 	public void setPreferences(Set<WeightedPreference> preferences) {
 		this.preferences = preferences;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(userId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return Objects.equals(userId, other.userId);
+	}
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", spotifyId=" + spotifyId + ", listenedTracks=" + listenedTracks
+				+ ", refreshToken=" + refreshToken + ", preferences=" + preferences + "]";
+	}
+	
+	public void addPreferences(Set<WeightedPreference> preferences) {
+		this.preferences.addAll(preferences);
 	}
 	
 }

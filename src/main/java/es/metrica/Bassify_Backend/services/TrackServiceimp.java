@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import es.metrica.Bassify_Backend.mappers.UserMapper;
 import es.metrica.Bassify_Backend.models.dto.TrackDTO;
 import es.metrica.Bassify_Backend.models.dto.UserDTO;
 import es.metrica.Bassify_Backend.models.entity.User;
@@ -20,6 +21,8 @@ public class TrackServiceimp implements TrackService {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	private UserMapper userMapper = UserMapper.INSTANCE;
 
 	@Override
 	public ResponseEntity<List<TrackDTO>> discoverRandom() {
@@ -31,8 +34,8 @@ public class TrackServiceimp implements TrackService {
 		Optional<User> user = userRepository.findBySpotifyId(spotifyId);
 		
 		if(user.isPresent()) {
-			UserDTO userDto = new UserDTO(user.get());
-			return new ResponseEntity<List<TrackDTO>>(Algorithm.getTracks(userDto.getPreferences()),HttpStatus.OK);
+			UserDTO userDto = userMapper.userToUserDto(user.get());
+			return new ResponseEntity<>(Algorithm.getTracks(userDto.getPreferences()),HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
