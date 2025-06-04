@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Set;
 
 import es.metrica.Bassify_Backend.models.dto.TrackDTO;
-import es.metrica.Bassify_Backend.models.entity.Track;
 import es.metrica.Bassify_Backend.models.entity.WeightedPreference;
 
 public class Algorithm {
@@ -16,16 +15,15 @@ public class Algorithm {
 	}
 	
 	public static List<TrackDTO> getTracks(Set<WeightedPreference> preferences, int quantity){
-//		List<Track> tracks = new LinkedList<>();
-//		for(WeightedPreference pref : preferences) {
-//			tracks.addAll(new TrackRequest().getTrackResponse(
-//					pref.getGenre(),
-//					pref.getLikedTracksCount().intValue() / pref.getListenedTracksCount().intValue(),
-//					pref.getListenedTracksCount().intValue()
-//				));
-//		}
-//		return tracks;
-		return null;
+		List<TrackDTO> tracks = new LinkedList<>();
+		for(WeightedPreference pref : preferences) {
+			tracks.addAll(new TrackRequest().getTracks(
+					pref.getGenre(),
+					pref.getLikedTracksCount().intValue() / pref.getListenedTracksCount().intValue(),
+					pref.getListenedTracksCount().intValue()
+				));
+		}
+		return tracks;
 	}
 }
 

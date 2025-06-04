@@ -10,6 +10,8 @@ public class TrackDTO {
 	private String imageURL;
 	private boolean isLiked;
 
+	public TrackDTO() {}
+	
 	public TrackDTO(Track track) {
 		this.trackSpotifyId = track.getTrackSpotifyId();
 		this.name = track.getName();
