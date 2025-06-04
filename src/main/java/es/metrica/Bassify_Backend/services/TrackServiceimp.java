@@ -20,9 +20,6 @@ public class TrackServiceimp implements TrackService {
 
 	@Autowired
 	private UserRepository userRepository;
-	
-	@Autowired
-	private TrackRepository trackRepository;
 
 	@Override
 	public ResponseEntity<List<TrackDTO>> discoverRandom() {

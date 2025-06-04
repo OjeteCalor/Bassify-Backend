@@ -25,7 +25,6 @@ public class WeightedPreference {
 		this.genre = a.getGenre();
 		this.likedTracksCount = a.getLikedTracksCount();
 		this.listenedTracksCount = a.getListenedTracksCount();
-		this.user = new User(a.getUser());
 	}
 
 	public Long getPreferenceId() {
