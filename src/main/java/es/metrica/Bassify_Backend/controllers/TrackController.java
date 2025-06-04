@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import es.metrica.Bassify_Backend.models.dto.TrackDTO;
@@ -25,29 +26,30 @@ public class TrackController {
 	@Autowired
 	private TrackService trackService;
 	
-	@PostMapping("/discover/random/{user_id}")
+	@GetMapping("/discover/random/{user_id}")
 	public ResponseEntity<List<TrackDTO>> discoverRandom(@PathVariable(name = "user_id") String spotifyId){
 		return trackService.discoverRandom(spotifyId);
 	}
 	
-	@PostMapping("/discover/preferences/{user_id}")
+	@GetMapping("/discover/preferences/{user_id}")
 	public ResponseEntity<List<TrackDTO>> discoverPreferences(@PathVariable(name = "user_id") String spotifyId){
 		// TODO
 		return null;
 	}
 	
 	@PostMapping("/discover/listened/{user_id}")
-	public ResponseEntity<List<TrackDTO>> discoverListened(){
-		// TODO
-		return null;
+	public ResponseEntity<List<TrackDTO>> discoverListened(@PathVariable(name = "user_id") String spotifyId, @RequestBody List<TrackDTO> trackListListened){
+		return trackService.discoverListened(spotifyId, trackListListened);
 	}
 	
-	@GetMapping("genres/get")
+	@GetMapping("/genres")
 	public ResponseEntity<Map<String, Object>> genres(){
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<String> genres = Arrays.stream(Genre.values()).map(g -> g.toString()).toList();
+		List<String> genres = Arrays.stream(Genre.values())
+									.map(Object::toString)
+									.toList();
 		map.put("genres", genres);
-		return new ResponseEntity(map, HttpStatus.OK);
+		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 	
 }

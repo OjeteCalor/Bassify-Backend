@@ -1,6 +1,6 @@
 package es.metrica.Bassify_Backend.models.entity;
 
-import java.util.List;
+import java.util.List; 
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -55,6 +55,5 @@ public class Artist {
 	public void setArtistGenres(List<String> artistGenres) {
 		this.artistGenres = artistGenres;
 	}
-
 	
 }
