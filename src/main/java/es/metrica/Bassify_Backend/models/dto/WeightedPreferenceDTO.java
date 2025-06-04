@@ -7,6 +7,7 @@ public class WeightedPreferenceDTO {
 	private String genre;
 	private Long likedTracksCount;
 	private Long listenedTracksCount;
+	private UserDTO user;
 	
 	public WeightedPreferenceDTO() {}
 	
@@ -14,6 +15,7 @@ public class WeightedPreferenceDTO {
 		this.genre = pref.getGenre();
 		this.likedTracksCount = pref.getLikedTracksCount();
 		this.listenedTracksCount = pref.getListenedTracksCount();
+		this.user = new UserDTO(pref.getUser());
 	}
 
 	public String getGenre() {
@@ -38,6 +40,14 @@ public class WeightedPreferenceDTO {
 
 	public void setListenedTracksCount(Long listenedTracksCount) {
 		this.listenedTracksCount = listenedTracksCount;
+	}
+
+	public UserDTO getUser() {
+		return user;
+	}
+
+	public void setUser(UserDTO user) {
+		this.user = user;
 	}
 	
 }

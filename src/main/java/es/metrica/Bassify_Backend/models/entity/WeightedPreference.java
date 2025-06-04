@@ -1,5 +1,6 @@
 package es.metrica.Bassify_Backend.models.entity;
 
+import es.metrica.Bassify_Backend.models.dto.WeightedPreferenceDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -19,6 +20,13 @@ public class WeightedPreference {
 	private User user;
 	
 	public WeightedPreference() {}
+
+	public WeightedPreference(WeightedPreferenceDTO a) {
+		this.genre = a.getGenre();
+		this.likedTracksCount = a.getLikedTracksCount();
+		this.listenedTracksCount = a.getListenedTracksCount();
+		this.user = new User(a.getUser());
+	}
 
 	public Long getPreferenceId() {
 		return preferenceId;
