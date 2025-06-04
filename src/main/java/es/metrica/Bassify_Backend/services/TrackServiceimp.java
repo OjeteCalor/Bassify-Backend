@@ -1,6 +1,6 @@
 package es.metrica.Bassify_Backend.services;
 
-import java.util.List;
+import java.util.List; 
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,6 @@ import es.metrica.Bassify_Backend.models.dto.TrackDTO;
 import es.metrica.Bassify_Backend.models.dto.UserDTO;
 import es.metrica.Bassify_Backend.models.entity.User;
 import es.metrica.Bassify_Backend.models.logic.Algorithm;
-import es.metrica.Bassify_Backend.repository.TrackRepository;
 import es.metrica.Bassify_Backend.repository.UserRepository;
 
 @Service

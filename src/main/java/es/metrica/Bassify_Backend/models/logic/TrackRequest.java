@@ -35,12 +35,17 @@ public class TrackRequest {
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", "Bearer " + accessToken);
+		
 		HttpEntity<String> entity = new HttpEntity<>(headers);
 
-		URI url = UriComponentsBuilder.fromUriString(API_REQUEST).encode().build().expand(genre, "track", limit, offset)
-				.toUri();
+		URI url = UriComponentsBuilder.fromUriString(API_REQUEST)
+										.encode()
+										.build()
+										.expand(genre, "track", limit, offset)
+										.toUri();
 
 		ResponseEntity<SearchDTO> response = restTemplate.exchange(url, HttpMethod.GET, entity, SearchDTO.class);
+		
 		if (response.hasBody())
 			return response.getBody().getTracksDTO();
 		else
