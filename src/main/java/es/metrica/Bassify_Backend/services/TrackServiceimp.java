@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import es.metrica.Bassify_Backend.models.dto.TrackDTO;
 import es.metrica.Bassify_Backend.models.entity.User;
+import es.metrica.Bassify_Backend.models.logic.Algorithm;
 import es.metrica.Bassify_Backend.repository.TrackRepository;
 import es.metrica.Bassify_Backend.repository.UserRepository;
 
@@ -23,16 +24,8 @@ public class TrackServiceimp implements TrackService {
 	private TrackRepository trackRepository;
 
 	@Override
-	public ResponseEntity<List<TrackDTO>> discoverRandom(String userSpotifyId) {
-		Optional<User> user = userRepository.findBySpotifyId(userSpotifyId);
-		
-		if(user.isPresent()) {
-			// TODO
-			return null;
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
+	public ResponseEntity<List<TrackDTO>> discoverRandom() {
+		return new ResponseEntity<>(Algorithm.getTracks(), HttpStatus.OK);
 	}
 
 	@Override

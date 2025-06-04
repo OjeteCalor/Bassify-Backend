@@ -6,9 +6,18 @@ import java.util.Set;
 
 import es.metrica.Bassify_Backend.models.dto.TrackDTO;
 import es.metrica.Bassify_Backend.models.dto.WeightedPreferenceDTO;
+import es.metrica.Bassify_Backend.models.values.Genre;
 
 public class Algorithm {
 	private static final int DEFAULT_QUANTITY = 20;
+	private static final Set<WeightedPreferenceDTO> DEFAULT_PREFERENCES= new java.util.HashSet<>() {{
+		for(Genre genre : Genre.values())
+			add(new WeightedPreferenceDTO(genre.toString()));
+	}};
+	
+	public static List<TrackDTO> getTracks(){
+		return getTracks(DEFAULT_PREFERENCES, DEFAULT_QUANTITY);
+	}
 	
 	public static List<TrackDTO> getTracks(Set<WeightedPreferenceDTO> preferences){
 		return getTracks(preferences, DEFAULT_QUANTITY);

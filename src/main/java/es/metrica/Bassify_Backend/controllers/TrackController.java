@@ -26,9 +26,9 @@ public class TrackController {
 	@Autowired
 	private TrackService trackService;
 	
-	@GetMapping("/discover/random/{user_id}")
-	public ResponseEntity<List<TrackDTO>> discoverRandom(@PathVariable(name = "user_id") String spotifyId){
-		return trackService.discoverRandom(spotifyId);
+	@GetMapping("/discover/random")
+	public ResponseEntity<List<TrackDTO>> discoverRandom(){
+		return trackService.discoverRandom();
 	}
 	
 	@GetMapping("/discover/preferences/{user_id}")
