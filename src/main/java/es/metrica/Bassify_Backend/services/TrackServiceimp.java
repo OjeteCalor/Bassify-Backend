@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import es.metrica.Bassify_Backend.models.dto.TrackDTO;
+import es.metrica.Bassify_Backend.models.dto.UserDTO;
 import es.metrica.Bassify_Backend.models.entity.User;
 import es.metrica.Bassify_Backend.models.logic.Algorithm;
 import es.metrica.Bassify_Backend.repository.TrackRepository;
@@ -30,8 +31,14 @@ public class TrackServiceimp implements TrackService {
 
 	@Override
 	public ResponseEntity<List<TrackDTO>> discoverPreferences(String spotifyId) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<User> user = userRepository.findBySpotifyId(spotifyId);
+		
+		if(user.isPresent()) {
+			UserDTO userDto = new UserDTO(user.get());
+			return new ResponseEntity<List<TrackDTO>>(Algorithm.getTracks(userDto.getPreferences()),HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 
 	@Override

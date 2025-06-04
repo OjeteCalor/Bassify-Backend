@@ -33,8 +33,7 @@ public class TrackController {
 	
 	@GetMapping("/discover/preferences/{user_id}")
 	public ResponseEntity<List<TrackDTO>> discoverPreferences(@PathVariable(name = "user_id") String spotifyId){
-		// TODO
-		return null;
+		return trackService.discoverPreferences(spotifyId);
 	}
 	
 	@PostMapping("/discover/listened/{user_id}")
