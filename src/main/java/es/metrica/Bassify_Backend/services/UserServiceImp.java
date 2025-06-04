@@ -1,15 +1,18 @@
 package es.metrica.Bassify_Backend.services;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import es.metrica.Bassify_Backend.mappers.UserMapper;
 import es.metrica.Bassify_Backend.models.dto.UserDTO;
 import es.metrica.Bassify_Backend.models.dto.UserLoginDTO;
 import es.metrica.Bassify_Backend.models.entity.User;
+import es.metrica.Bassify_Backend.models.entity.WeightedPreference;
 import es.metrica.Bassify_Backend.models.logic.toolbox.AccesToken;
 import es.metrica.Bassify_Backend.models.logic.toolbox.TokenPetition;
 import es.metrica.Bassify_Backend.repository.UserRepository;
@@ -20,8 +23,10 @@ public class UserServiceImp implements UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	private UserMapper userMapper = UserMapper.INSTANCE;
+	
 	@Override
-	public ResponseEntity<UserLoginDTO> login(UserDTO userDto) {
+	public ResponseEntity<UserLoginDTO> login(UserDTO userDto) { 
 		
 		String accessToken = AccesToken.getAccessToken(userDto.getRefreshToken());
 		String spotifyId = TokenPetition.getUserId(accessToken);
@@ -31,10 +36,10 @@ public class UserServiceImp implements UserService {
 
 		if(userOpt.isPresent()) {
 			User user = userRepository.findBySpotifyId(userDto.getSpotifyId()).get();
-			return new ResponseEntity<>(new UserLoginDTO(user), HttpStatus.OK);
+			return new ResponseEntity<>(userMapper.userToUserLoginDto(user), HttpStatus.OK);
 		} else {
-			User user = userRepository.save(new User(userDto));
-			return new ResponseEntity<>(new UserLoginDTO(user), HttpStatus.CREATED);
+			User user = userRepository.save(userMapper.userDtoToUser(userDto));
+			return new ResponseEntity<>(userMapper.userToUserLoginDto(user), HttpStatus.CREATED);
 		}
 
 	}
@@ -42,13 +47,22 @@ public class UserServiceImp implements UserService {
 	@Override
 	public ResponseEntity<UserDTO> createPreference(UserDTO userDto) {
 		Optional<User> userOpt = userRepository.findBySpotifyId(userDto.getSpotifyId());
-		// Si ya está registrado
-		if(userOpt.isPresent()) {
+		
+		if(!userOpt.isPresent()) 
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		} else {
-			User user = userRepository.save(new User(userDto));
-			return new ResponseEntity<>(new UserDTO(user), HttpStatus.CREATED);
-		}
+	
+		User user = userOpt.get();
+		user.setPreferences(userDto.getPreferences()
+									.stream()
+									.map(a -> {
+										WeightedPreference w = new WeightedPreference(a);
+										w.setUser(user);
+										return w;
+									})
+									.collect(Collectors.toSet()));
+
+		userRepository.save(user);
+		return new ResponseEntity<>(userMapper.userToUserDto(user), HttpStatus.OK); // PETA
 	}
 
 }

@@ -34,12 +34,12 @@ public class User {
 	
 	public User() {}
 
-	public User(UserDTO userDto) {
-		this.spotifyId = userDto.getSpotifyId();
-		this.listenedTracks = userDto.getListenedTracks().stream().map(a -> new Track(a)).collect(Collectors.toSet());
-		this.preferences = userDto.getPreferences().stream().map(a -> new WeightedPreference(a)).collect(Collectors.toSet());
-		this.refreshToken = userDto.getRefreshToken();
-	}
+//	public User(UserDTO userDto) {
+//		this.spotifyId = userDto.getSpotifyId();
+//		this.listenedTracks = userDto.getListenedTracks().stream().map(a -> new Track(a)).collect(Collectors.toSet());
+//		this.preferences = userDto.getPreferences().stream().map(a -> new WeightedPreference(a)).collect(Collectors.toSet());
+//		this.refreshToken = userDto.getRefreshToken();
+//	}
 
 	public Long getUserId() {
 		return userId;
