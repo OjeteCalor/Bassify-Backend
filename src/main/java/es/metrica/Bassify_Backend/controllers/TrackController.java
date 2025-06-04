@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import es.metrica.Bassify_Backend.models.dto.TrackDTO;
-import es.metrica.Bassify_Backend.models.entity.Genre;
+import es.metrica.Bassify_Backend.models.values.Genre;
 import es.metrica.Bassify_Backend.services.TrackService;
 
 @Controller

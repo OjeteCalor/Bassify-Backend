@@ -1,4 +1,4 @@
-package es.metrica.Bassify_Backend.models.entity;
+package es.metrica.Bassify_Backend.models.values;
 
 public enum Genre {
 	Rock,
