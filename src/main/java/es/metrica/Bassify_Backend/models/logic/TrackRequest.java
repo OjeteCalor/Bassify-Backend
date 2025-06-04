@@ -1,65 +1,49 @@
 package es.metrica.Bassify_Backend.models.logic;
 
+import java.net.URI;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
+import es.metrica.Bassify_Backend.models.dto.SearchDTO;
 import es.metrica.Bassify_Backend.models.dto.TrackDTO;
-import es.metrica.Bassify_Backend.models.entity.Track;
 import es.metrica.Bassify_Backend.models.logic.toolbox.AccesToken;
-import es.metrica.Bassify_Backend.models.logic.toolbox.JsonParser;
 import es.metrica.Bassify_Backend.properties.PropertiesSingleton;
 
 public class TrackRequest {
-	
-	private static final String API_REQUEST = "https://api.spotify.com/v1/search?q={query}&type={type}&limit={limit}&offset={offset}";
-	
-	List<TrackDTO> getTrackResponse(String genre){
-		return getTrackResponse(genre, 0);
+
+	private static final String API_REQUEST = "https://api.spotify.com/v1/search?q=genre:{genre}&type={type}&limit={limit}&offset={offset}";
+
+	List<TrackDTO> getTracks(String genre) {
+		return getTracks(genre, 1);
 	}
-	
-	List<TrackDTO> getTrackResponse(String genre, int limit){
-		return getTrackResponse(genre, limit, 0);
+
+	List<TrackDTO> getTracks(String genre, int limit) {
+		return getTracks(genre, limit, 0);
 	}
-	
-	List<TrackDTO> getTrackResponse(String genre, int limit, int offset){
+
+	List<TrackDTO> getTracks(String genre, int limit, int offset) {
+
 		RestTemplate restTemplate = new RestTemplate();
 		String accessToken = AccesToken.getAccessToken(PropertiesSingleton.getProperties().getProperty("refreshToken"));
-        String url = API_REQUEST;
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", accessToken);
-        HttpEntity<String> entity = new HttpEntity<>(headers);
-        Map<String, String> params = new HashMap<>();
-        
-        params.put("query", genre);
-        params.put("type", "track");
-        params.put("limit", String.valueOf(limit));
-        params.put("offset", String.valueOf(offset));
-      
-        ResponseEntity<TrackDTO[]> response = restTemplate.exchange(
-                url,
-                HttpMethod.GET,
-                entity,
-                TrackDTO[].class,
-                params
-        );
 
-        
-//        return response.getBody();
-        return null;
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Bearer " + accessToken);
+		HttpEntity<String> entity = new HttpEntity<>(headers);
+
+		URI url = UriComponentsBuilder.fromUriString(API_REQUEST).encode().build().expand(genre, "track", limit, offset)
+				.toUri();
+
+		ResponseEntity<SearchDTO> response = restTemplate.exchange(url, HttpMethod.GET, entity, SearchDTO.class);
+		if (response.hasBody())
+			return response.getBody().getTracksDTO();
+		else
+			return new ArrayList<>();
 	}
 }
