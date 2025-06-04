@@ -37,13 +37,14 @@ public class TrackController {
 	}
 	
 	@PostMapping("/discover/listened/{user_id}")
-	public ResponseEntity<List<TrackDTO>> discoverListened(@PathVariable(name = "user_id") String spotifyId, @RequestBody List<TrackDTO> trackListListened){
+	public ResponseEntity<List<TrackDTO>> discoverListened(@PathVariable(name = "user_id") String spotifyId, 
+																@RequestBody List<TrackDTO> trackListListened){
 		return trackService.discoverListened(spotifyId, trackListListened);
 	}
 	
 	@GetMapping("/genres")
 	public ResponseEntity<Map<String, Object>> genres(){
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<>();
 		List<String> genres = Arrays.stream(Genre.values())
 									.map(Object::toString)
 									.toList();

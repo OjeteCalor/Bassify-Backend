@@ -10,8 +10,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class TokenPetition {
+	
 	public static String getUserId(String token) {
-		String idResponse = null;
 
         HttpClient client = HttpClient.newHttpClient();
 
@@ -21,6 +21,8 @@ public class TokenPetition {
                 .GET()
                 .build();
         
+        String idResponse = null;
+        
         try {
 			HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 			ObjectMapper mapper = new ObjectMapper();
@@ -28,9 +30,10 @@ public class TokenPetition {
 			idResponse = id.get("id").asText();
         } catch (IOException | InterruptedException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			client.close();
 		}
         return idResponse;
 	}
+	
 }

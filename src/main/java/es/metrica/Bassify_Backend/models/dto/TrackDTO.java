@@ -1,8 +1,8 @@
 package es.metrica.Bassify_Backend.models.dto;
 
-import es.metrica.Bassify_Backend.models.entity.Track;
 
 public class TrackDTO {
+	
 	private String trackSpotifyId;
 	private String name;
 	private ArtistDTO artist;
@@ -12,14 +12,6 @@ public class TrackDTO {
 
 	public TrackDTO() {}
 	
-	public TrackDTO(Track track) {
-		this.trackSpotifyId = track.getTrackSpotifyId();
-		this.name = track.getName();
-		this.artist = new ArtistDTO(track.getArtist());
-		this.previewURL = track.getPreviewURL();
-		this.imageURL = track.getImageURL();
-	}
-
 	public String getTrackSpotifyId() {
 		return trackSpotifyId;
 	}

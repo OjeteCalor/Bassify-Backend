@@ -1,16 +1,20 @@
 package es.metrica.Bassify_Backend.models.values;
 
 public enum Genre {
-	Rock,
 	Pop,
-	Rap,
-	Jazz,
-	Reggaeton,
-	Electronica,
+	Rock,
 	HipHop,
-	Latina, 
-	Clasica,
+	Rap,
+	Reggaeton,
+	Trap,
+	Latina,
+	Indie,
+	Metal,
+	Jazz,
+	House,
 	Country,
-	Dance,
-	Metal
+	Clasica,
+	Techno,
+	Punk,
+	Lofi
 }

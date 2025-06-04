@@ -19,14 +19,6 @@ public class WeightedPreferenceDTO {
 		this.likedTracksCount = likedTracksCount;
 		this.listenedTracksCount = listenedTracksCount;
 	}
-	
-	public WeightedPreferenceDTO(String genre, Long likedTracksCount, Long listenedTracksCount, UserDTO userDto) {
-		super();
-		this.genre = genre;
-		this.likedTracksCount = likedTracksCount;
-		this.listenedTracksCount = listenedTracksCount;
-		this.userDto = userDto;
-	}
 
 	public String getGenre() {
 		return genre;

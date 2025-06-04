@@ -51,6 +51,7 @@ public class UserServiceImp implements UserService {
 
 	@Override
 	public ResponseEntity<UserDTO> createPreference(UserDTO userDto) {
+		
 		Optional<User> userOpt = userRepository.findBySpotifyId(userDto.getSpotifyId());
 		
 		if(!userOpt.isPresent()) 
