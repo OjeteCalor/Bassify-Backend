@@ -8,17 +8,45 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class SearchDTO {
 	private Tracks tracks;
 
-	public Tracks getTracks() {
+	Tracks getTracks() {
 		return tracks;
 	}
 
-	public void setTracks(Tracks tracks) {
+	void setTracks(Tracks tracks) {
 		this.tracks = tracks;
 	}
+	
+	public List<TrackDTO> getTracksDTO(){
+		List<TrackDTO> trackList = new java.util.LinkedList<>();
+		
+		for (Item item : tracks.getItems())
+			trackList.add(TrackItemToDTOParser.parse(item));
+		
+		return trackList;
+	}
+}
 
-	@Override
-	public String toString() {
-		return "SearchDTO [tracks=" + tracks + "]";
+interface TrackItemToDTOParser {
+	static TrackDTO parse(Item track) {
+		TrackDTO dto = new TrackDTO();
+
+		dto.setTrackSpotifyId(track.getId());
+		dto.setName(track.getName());
+		dto.setImageURL(track.getAlbum().getImages().get(0).getUrl());
+		dto.setArtist(ArtistItemToDTOParser.parse(track.getArtists().get(0)));
+
+		return dto;
+	}
+}
+
+interface ArtistItemToDTOParser {
+	static ArtistDTO parse(Artist artist) {
+		ArtistDTO dto = new ArtistDTO();
+
+		dto.setArtistSpotifyId(artist.getId());
+		dto.setArtistName(artist.getName());
+
+		return dto;
 	}
 }
 
@@ -33,20 +61,10 @@ class Tracks {
 	public void setItems(List<Item> items) {
 		this.items = items;
 	}
-
-	@Override
-	public String toString() {
-		return "Tracks [items=" + items + "]";
-	}
 }
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 class Item {
-	@Override
-	public String toString() {
-		return "Item [album=" + album + ", artists=" + artists + ", id=" + id + ", name=" + name + "]";
-	}
-
 	private Album album;
 	private List<Artist> artists;
 	private String id;
