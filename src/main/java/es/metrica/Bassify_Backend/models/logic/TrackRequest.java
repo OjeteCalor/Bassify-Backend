@@ -51,7 +51,7 @@ public class TrackRequest {
 		if (response.hasBody())
 			return response.getBody().getTracksDTO().stream()
 					.map(a -> {
-						a.setPreviewURL(DeezerPreview.getTrackPreview(a.getArtist().getArtistName(), a.getName()));
+						a.setPreviewURL(DeezerPreview.getTrackPreview(a.getArtist().getName(), a.getName()));
 						return a;
 					})
 					.toList();

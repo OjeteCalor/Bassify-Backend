@@ -57,11 +57,7 @@ public class TrackServiceimp implements TrackService {
 
 	@Override
 	public ResponseEntity<Void> discoverListened(String spotifyId, List<TrackDTO> trackListListened) {
-	
-		for(TrackDTO trackDto : trackListListened) {
-			LOG.info("Verificando LIKE; trackDto.isLiked() -> [{}]", trackDto.isLiked());
-		}
-		
+
 		Optional<User> userOpt = userRepository.findBySpotifyId(spotifyId);
 			
 		if(!userOpt.isPresent())
@@ -72,43 +68,34 @@ public class TrackServiceimp implements TrackService {
 		
 		User user = userOpt.get();
 		user.getListenedTracks().addAll(trackList);
-		
-		LOG.info("Dando persistencia a las preferencias del Usuario, canciones escuchadas: [{}]", trackListListened.size());
-		
+				
 		for(TrackDTO trackDto : trackListListened) {
 
 			List<String> genresRegisteredByUser = user.getPreferences().stream().map(p -> p.getGenre()).toList();
 			
 			for(String genre : trackDto.getArtist().getGenres()) {
-
-				WeightedPreference w;
 				
-				if(genresRegisteredByUser.contains(genre)) {
-					
+				WeightedPreference w;				
+				if(genresRegisteredByUser.contains(genre)) {					
 					w = user.getPreferences().stream()
 												.filter(g -> g.getGenre().equals(genre))
 												.findFirst()
-												.get();
+												.orElseThrow();
 					
 					if(trackDto.isLiked())
 						w.setLikedTracksCount(w.getLikedTracksCount()+1);
+					w.setListenedTracksCount(w.getListenedTracksCount()+1);	
 					
-					w.setListenedTracksCount(w.getListenedTracksCount()+1);
-					
-				} else {
-					
+				} else {				
 					w = new WeightedPreference(null, genre, 0L, 0L, user);
 					
 					if(trackDto.isLiked())
-						w.setLikedTracksCount(w.getLikedTracksCount()+1);
-					
+						w.setLikedTracksCount(w.getLikedTracksCount()+1);					
 					w.setListenedTracksCount(w.getListenedTracksCount()+1);
 					
 					user.getPreferences().add(w);
-				}
-				
-			}
-				
+				}				
+			}				
 		}		
 		userRepository.save(user);
 		return new ResponseEntity<>(HttpStatus.OK);
