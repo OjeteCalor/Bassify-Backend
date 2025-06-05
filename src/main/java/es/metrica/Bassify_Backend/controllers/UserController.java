@@ -24,7 +24,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/create/preferences")
-	public ResponseEntity<UserDTO> createPreferences(@RequestBody UserDTO userDto){
+	public ResponseEntity<Void> createPreferences(@RequestBody UserDTO userDto){
 		 return userService.createPreference(userDto);
 	}
 	
