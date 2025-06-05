@@ -54,6 +54,9 @@ class TestToolbox {
 		Properties p = PropertiesSingleton.getProperties();
 		
 		assertNotNull(AccesToken.getAccessToken(p.getProperty("refreshToken")));
+		assertNotNull(AccesToken.getAccessToken(p.getProperty("refreshToken")));
+		assertNotNull(AccesToken.getAccessToken(p.getProperty("refreshToken")));
+		assertThrows(HttpClientErrorException.class, () -> AccesToken.getAccessToken("no_valido"));
 		assertThrows(HttpClientErrorException.class, () -> AccesToken.getAccessToken("no_valido"));
 	}
 	
@@ -62,6 +65,10 @@ class TestToolbox {
 		Properties p = PropertiesSingleton.getProperties();
 		
 		assertNotNull(TokenPetition.getUserId(AccesToken.getAccessToken(p.getProperty("refreshToken"))));
+		assertNotNull(TokenPetition.getUserId(AccesToken.getAccessToken(p.getProperty("refreshToken"))));
+		assertNotNull(TokenPetition.getUserId(AccesToken.getAccessToken(p.getProperty("refreshToken"))));
+		assertNotNull(TokenPetition.getUserId(AccesToken.getAccessToken(p.getProperty("refreshToken"))));
+		assertThrows(NullPointerException.class, () -> TokenPetition.getUserId("no_valido"));
 		assertThrows(NullPointerException.class, () -> TokenPetition.getUserId("no_valido"));
 	}
 }
