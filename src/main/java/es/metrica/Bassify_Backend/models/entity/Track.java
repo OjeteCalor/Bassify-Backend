@@ -1,7 +1,6 @@
 package es.metrica.Bassify_Backend.models.entity;
 
-import java.util.Objects;
-
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,7 +14,7 @@ public class Track {
 	private Long trackId;
 	private String trackSpotifyId;
 	private String name;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Artist artist;
 	private String previewURL;
 	private String imageURL;
@@ -69,10 +68,14 @@ public class Track {
 	public void setImageURL(String imageURL) {
 		this.imageURL = imageURL;
 	}
-	
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(artist, name);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((artist == null) ? 0 : artist.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
 	}
 
 	@Override
@@ -84,7 +87,17 @@ public class Track {
 		if (getClass() != obj.getClass())
 			return false;
 		Track other = (Track) obj;
-		return Objects.equals(artist, other.artist) && Objects.equals(name, other.name);
+		if (artist == null) {
+			if (other.artist != null)
+				return false;
+		} else if (!artist.equals(other.artist))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
 	}
 
 	@Override

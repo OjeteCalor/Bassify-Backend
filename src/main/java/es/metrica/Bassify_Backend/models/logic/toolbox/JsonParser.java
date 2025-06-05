@@ -18,7 +18,7 @@ public class JsonParser {
 	
 	public static Artist parseArtist(JsonNode json) {
 		Artist artist = new Artist();
-		artist.setArtistSpotifyId(json.get("id").textValue());
+		artist.setSpotifyId(json.get("id").textValue());
 		return artist;
 	}
 	
