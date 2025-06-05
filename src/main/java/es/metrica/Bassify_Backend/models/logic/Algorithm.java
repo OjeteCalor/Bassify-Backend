@@ -2,6 +2,7 @@ package es.metrica.Bassify_Backend.models.logic;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import es.metrica.Bassify_Backend.models.dto.TrackDTO;
@@ -14,6 +15,10 @@ public class Algorithm {
 		for(Genre genre : Genre.values())
 			add(new WeightedPreferenceDTO(genre.toString()));
 	}};
+	
+	public static List<TrackDTO> getRandomTracks(){
+		return getTracks(DEFAULT_PREFERENCES, new Random().nextInt(0, 1000));
+	}
 	
 	public static List<TrackDTO> getTracks(){
 		return getTracks(DEFAULT_PREFERENCES, DEFAULT_QUANTITY);
