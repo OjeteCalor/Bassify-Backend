@@ -71,9 +71,6 @@ class TestJPA {
 	    entityManager.flush();
 	    
 	    Optional<User> found = userRepository.findBySpotifyId("pepito");
-	    if (!found.isPresent()) {
-	        System.out.println("User with Spotify ID 'pepito' not found.");
-	    }
 	    
 	    assertTrue(found.isPresent());
 	    assertEquals(preferences.toString(), found.get().getPreferences().toString());
