@@ -26,8 +26,8 @@ public class DeezerPreview {
 	        JsonNode rootNode = objectMapper.readTree(response.body());
 	        JsonNode firstTrack = rootNode.path("data").get(0);
 	        previewUrl = firstTrack.path("preview").asText();
-		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
+		} catch (IOException | InterruptedException |NullPointerException e) {
+			//TODO: Comunicar que no existe
 		}
         return previewUrl;
     }
