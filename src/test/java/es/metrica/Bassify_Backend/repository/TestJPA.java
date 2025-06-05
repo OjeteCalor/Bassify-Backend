@@ -1,4 +1,4 @@
-package es.metrica.Bassify_Backend;
+package es.metrica.Bassify_Backend.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

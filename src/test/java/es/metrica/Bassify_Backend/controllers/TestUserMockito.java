@@ -1,4 +1,4 @@
-package es.metrica.Bassify_Backend;
+package es.metrica.Bassify_Backend.controllers;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
