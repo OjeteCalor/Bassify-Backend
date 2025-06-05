@@ -39,8 +39,8 @@ interface TrackItemToDTOParser {
 interface ArtistItemToDTOParser {
 	static ArtistDTO parse(Artist artist) {
 		ArtistDTO dto = new ArtistDTO();
-		dto.setArtistSpotifyId(artist.getId());
-		dto.setArtistName(artist.getName());
+		dto.setSpotifyId(artist.getId());
+		dto.setName(artist.getName());
 		return dto;
 	}
 }

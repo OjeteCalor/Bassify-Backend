@@ -1,12 +1,11 @@
 package es.metrica.Bassify_Backend.controllers;
 
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,13 +15,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import es.metrica.Bassify_Backend.models.dto.TrackDTO;
-import es.metrica.Bassify_Backend.models.values.Genre;
 import es.metrica.Bassify_Backend.services.TrackService;
+import es.metrica.Bassify_Backend.services.TrackServiceimp;
 
 @Controller
 @RequestMapping("api/v1/tracks")
 public class TrackController {
 
+	private final Logger LOG = LoggerFactory.getLogger(TrackController.class);
+	
 	@Autowired
 	private TrackService trackService;
 	
@@ -37,19 +38,14 @@ public class TrackController {
 	}
 	
 	@PostMapping("/discover/listened/{user_id}")
-	public ResponseEntity<List<TrackDTO>> discoverListened(@PathVariable(name = "user_id") String spotifyId, 
+	public ResponseEntity<Void> discoverListened(@PathVariable(name = "user_id") String spotifyId, 
 																@RequestBody List<TrackDTO> trackListListened){
 		return trackService.discoverListened(spotifyId, trackListListened);
 	}
 	
 	@GetMapping("/genres")
 	public ResponseEntity<Map<String, Object>> genres(){
-		Map<String, Object> map = new HashMap<>();
-		List<String> genres = Arrays.stream(Genre.values())
-									.map(Object::toString)
-									.toList();
-		map.put("genres", genres);
-		return new ResponseEntity<>(map, HttpStatus.OK);
+		return trackService.genres();
 	}
 	
 }
