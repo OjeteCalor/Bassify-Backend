@@ -40,7 +40,7 @@ public class TrackServiceimp implements TrackService {
 	
 	@Override
 	public ResponseEntity<List<TrackDTO>> discoverRandom() {
-		return new ResponseEntity<>(Algorithm.getTracks(), HttpStatus.OK);
+		return new ResponseEntity<>(Algorithm.getRandomTracks(), HttpStatus.OK);
 	}
 
 	@Override
