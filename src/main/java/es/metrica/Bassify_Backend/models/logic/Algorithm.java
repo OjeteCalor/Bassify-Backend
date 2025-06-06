@@ -21,7 +21,7 @@ public class Algorithm {
 	public static List<TrackDTO> getRandomTracks(){
 		List<TrackDTO> tracks = new java.util.LinkedList<>();
 		for (SearchQuery q : createQuerys(DEFAULT_PREFERENCES, DEFAULT_QUANTITY)) {
-			
+			System.out.println(q.limit + "Limit");
 			tracks.addAll(new TrackRequest().getTracks(
 					q.genre,
 					q.limit.intValue(),
@@ -64,7 +64,8 @@ public class Algorithm {
 			double weight = (double) pref.getLikedTracksCount() / (double) pref.getListenedTracksCount()
 					/total*maxWeight;
 			totalWeight += weight;
-			querys.addLast(new SearchQuery(pref.getGenre(),(long) weight,pref.getListenedTracksCount()));
+			if (weight >= 1)
+				querys.addLast(new SearchQuery(pref.getGenre(),(long) weight,pref.getListenedTracksCount()));
 		}
 		if ((long) totalWeight != maxWeight) {
 			int randIdx = new Random().nextInt(0, querys.size());

@@ -52,7 +52,6 @@ public class TrackRequest {
 		ResponseEntity<SearchDTO> response = restTemplate.exchange(url, HttpMethod.GET, entity, SearchDTO.class);
 		
 		if (response.hasBody() && !response.getBody().getTracksDTO().isEmpty()) {
-			System.out.println(response.getBody().getTracksDTO());
 			return fillSeveralArtist(
 					response.getBody().getTracksDTO().stream()
 					.map(a -> {
@@ -67,11 +66,6 @@ public class TrackRequest {
 	}
 	
 	public static List<TrackDTO> fillSeveralArtist(List<TrackDTO> tracks) {
-		System.out.println(tracks);
-		System.out.println(tracks.stream()
-					.map((t) -> t.getArtist().getSpotifyId())
-					.toList());
-		
 		Optional<List<ArtistDTO>> artistListOp = new ArtistRequest().getSeveralArtists(
 					tracks.stream()
 					.map((t) -> t.getArtist().getSpotifyId())
