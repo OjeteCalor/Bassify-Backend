@@ -52,7 +52,6 @@ public class TrackRequest {
 		ResponseEntity<SearchDTO> response = restTemplate.exchange(url, HttpMethod.GET, entity, SearchDTO.class);
 		
 		if (response.hasBody() && !response.getBody().getTracksDTO().isEmpty()) {
-			System.out.println(response.getBody().getTracksDTO());
 			return fillSeveralArtist(
 					response.getBody().getTracksDTO().stream()
 					.map(a -> {
