@@ -39,7 +39,7 @@ public class Algorithm {
 	}
 	
 	public static List<TrackDTO> getTracks(Set<WeightedPreferenceDTO> preferences, int quantity){
-		if (preferences.size() == 0)
+		if (preferences == null || preferences.size() == 0 || preferences.stream().mapToInt((p) -> p.getLikedTracksCount().intValue()).sum() == 0)
 			return getRandomTracks();
 		List<TrackDTO> tracks = new java.util.LinkedList<>();
 		for (SearchQuery q : createQuerys(preferences, quantity)) {
