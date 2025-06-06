@@ -16,7 +16,7 @@ public class DeezerPreview {
         String previewUrl = null;
         
         HttpClient client = HttpClient.newHttpClient();
-        String url = "http://api.deezer.com/search?q=artist:%22" + artist.toLowerCase().replace(" ", "%20") + "%22%20track:%22" + name.toLowerCase().replace(" ", "%20") + "%22";
+        String url = "http://api.deezer.com/search?q=artist:%22" + artist.toLowerCase().replace(" ", "%20").replace("\"", "%22") + "%22%20track:%22" + name.toLowerCase().replace(" ", "%20").replace("\"", "%22") + "%22";
         
 		HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();
 		HttpResponse<String> response;
