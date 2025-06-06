@@ -2,7 +2,9 @@ package es.metrica.Bassify_Backend.models.logic;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.http.HttpEntity;
@@ -12,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import es.metrica.Bassify_Backend.models.dto.ArtistDTO;
 import es.metrica.Bassify_Backend.models.dto.SearchDTO;
 import es.metrica.Bassify_Backend.models.dto.TrackDTO;
 import es.metrica.Bassify_Backend.models.logic.toolbox.AccesToken;
@@ -48,14 +51,40 @@ public class TrackRequest {
 
 		ResponseEntity<SearchDTO> response = restTemplate.exchange(url, HttpMethod.GET, entity, SearchDTO.class);
 		
-		if (response.hasBody())
-			return response.getBody().getTracksDTO().stream()
+		if (response.hasBody() && !response.getBody().getTracksDTO().isEmpty()) {
+			System.out.println(response.getBody().getTracksDTO());
+			return fillSeveralArtist(
+					response.getBody().getTracksDTO().stream()
 					.map(a -> {
 						a.setPreviewURL(DeezerPreview.getTrackPreview(a.getArtist().getName(), a.getName()));
 						return a;
 					})
-					.toList();
+					.toList()
+					);
+		}
 		else
 			return new ArrayList<>();
+	}
+	
+	public static List<TrackDTO> fillSeveralArtist(List<TrackDTO> tracks) {
+		System.out.println(tracks);
+		System.out.println(tracks.stream()
+					.map((t) -> t.getArtist().getSpotifyId())
+					.toList());
+		
+		Optional<List<ArtistDTO>> artistListOp = new ArtistRequest().getSeveralArtists(
+					tracks.stream()
+					.map((t) -> t.getArtist().getSpotifyId())
+					.toArray(String[]::new)
+				);
+		List<ArtistDTO> artistList = new LinkedList<>();
+		if (artistListOp.isPresent()) {
+			artistList = artistListOp.get();
+		}
+		
+		for( int i = 0; i < artistList.size(); i++) {
+			tracks.get(i).setArtist(artistList.get(i));
+		}
+		return tracks;
 	}
 }
