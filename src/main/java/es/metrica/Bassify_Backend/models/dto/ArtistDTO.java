@@ -13,8 +13,8 @@ public class ArtistDTO {
 	public ArtistDTO() {}
 
 	public ArtistDTO(Artist artist) {
-		this.artistSpotifyId = artist.getSpotifyId();
-		this.artistName = artist.getName();
+		this.spotifyId = artist.getSpotifyId();
+		this.name = artist.getName();
 		this.genres = artist.getGenres();
   }
   
@@ -34,13 +34,6 @@ public class ArtistDTO {
 		this.name = name;
 	}
 
-	public List<String> getGenres() {
-		return genres;
-	}
-
-	public void setGenres(List<String> genres) {
-		this.genres = genres;
-	}
 	public List<String> getGenres() {
 		return genres;
 	}
