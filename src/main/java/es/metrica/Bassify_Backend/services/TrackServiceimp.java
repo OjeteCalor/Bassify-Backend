@@ -125,7 +125,7 @@ public class TrackServiceimp implements TrackService {
 		
 		Set<WeightedPreference> weightedPreferenceSet = new HashSet<>();
 		for(String genre : genres) {
-			WeightedPreference w = new WeightedPreference(null, genre, 0L, 0L, user);
+			WeightedPreference w = new WeightedPreference(null, genre, 1L, 1L, user);
 			weightedPreferenceSet.add(w);
 		}
 		user.addPreferences(weightedPreferenceSet);
