@@ -1,6 +1,6 @@
 package es.metrica.Bassify_Backend.models.entity;
 
-import es.metrica.Bassify_Backend.models.dto.TrackDTO;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,20 +14,12 @@ public class Track {
 	private Long trackId;
 	private String trackSpotifyId;
 	private String name;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Artist artist;
 	private String previewURL;
 	private String imageURL;
 
 	public Track() {}
-	
-	public Track(TrackDTO a) {
-		this.trackSpotifyId = a.getTrackSpotifyId();
-		this.name = a.getName();
-		this.artist = new Artist(a.getArtist());
-		this.previewURL = a.getPreviewURL();
-		this.imageURL = a.getImageURL();
-	}
 
 	public Long getTrackId() {
 		return trackId;
@@ -75,6 +67,42 @@ public class Track {
 
 	public void setImageURL(String imageURL) {
 		this.imageURL = imageURL;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((artist == null) ? 0 : artist.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Track other = (Track) obj;
+		if (artist == null) {
+			if (other.artist != null)
+				return false;
+		} else if (!artist.equals(other.artist))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Track [trackId=" + trackId + ", name=" + name + ", artist=" + artist + "]";
 	}
 	
 }

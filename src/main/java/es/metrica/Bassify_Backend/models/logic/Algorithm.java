@@ -9,11 +9,14 @@ import es.metrica.Bassify_Backend.models.dto.WeightedPreferenceDTO;
 import es.metrica.Bassify_Backend.models.values.Genre;
 
 public class Algorithm {
+	
 	private static final int DEFAULT_QUANTITY = 20;
-	private static final Set<WeightedPreferenceDTO> DEFAULT_PREFERENCES= new java.util.HashSet<>() {{
+	private static final Set<WeightedPreferenceDTO> DEFAULT_PREFERENCES = new java.util.HashSet<>() {
+		{
 		for(Genre genre : Genre.values())
 			add(new WeightedPreferenceDTO(genre.toString()));
-	}};
+		}
+	};
 	
 	public static List<TrackDTO> getRandomTracks(){
 		List<TrackDTO> tracks = new java.util.LinkedList<>();

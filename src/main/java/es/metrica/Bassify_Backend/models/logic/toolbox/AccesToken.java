@@ -1,6 +1,6 @@
 package es.metrica.Bassify_Backend.models.logic.toolbox;
 
-import java.util.Base64;
+import java.util.Base64; 
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -20,7 +20,6 @@ public class AccesToken {
 	
 	public static String getAccessToken(String refreshToken) {
 		String token = null;
-		
 		
 		String userId = PropertiesSingleton.getProperties().getProperty("userId");
 		String userSecret = PropertiesSingleton.getProperties().getProperty("userSecret");
@@ -43,12 +42,12 @@ public class AccesToken {
 				request, String.class);
 		
 		ObjectMapper mapper = new ObjectMapper();
-			try {
-				JsonNode nodes = mapper.readTree(response.getBody());
-				token = nodes.get("access_token").asText();
-			} catch (JsonProcessingException e) {
-				e.printStackTrace();
-			}
-	        return token;
+		try {
+			JsonNode nodes = mapper.readTree(response.getBody());
+			token = nodes.get("access_token").asText();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+        return token;
 	}
 }

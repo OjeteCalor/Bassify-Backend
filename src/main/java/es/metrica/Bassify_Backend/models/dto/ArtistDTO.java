@@ -8,30 +8,40 @@ import es.metrica.Bassify_Backend.models.entity.Artist;
 
 public class ArtistDTO {
 	@JsonProperty("id")
-	private String artistSpotifyId;
-	@JsonProperty("name")
-	private String artistName;
+	private String spotifyId;
+	private String name;
 	private List<String> genres;
 	
 	public ArtistDTO() {}
 
 	public ArtistDTO(Artist artist) {
-		this.artistSpotifyId = artist.getArtistSpotifyId();
-		this.artistName = artist.getArtistName();
-		this.genres = artist.getArtistGenres();
+		this.spotifyId = artist.getSpotifyId();
+		this.name = artist.getName();
+		this.genres = artist.getGenres();
 	}
-	
-	public String getArtistSpotifyId() {
-		return artistSpotifyId;
+
+	public String getSpotifyId() {
+		return spotifyId;
 	}
-	public void setArtistSpotifyId(String artistSpotifyId) {
-		this.artistSpotifyId = artistSpotifyId;
+
+	public void setSpotifyId(String spotifyId) {
+		this.spotifyId = spotifyId;
 	}
-	public String getArtistName() {
-		return artistName;
+
+	public String getName() {
+		return name;
 	}
-	public void setArtistName(String artistName) {
-		this.artistName = artistName;
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<String> getGenres() {
+		return genres;
+	}
+
+	public void setGenres(List<String> genres) {
+		this.genres = genres;
 	}
 	public List<String> getGenres() {
 		return genres;

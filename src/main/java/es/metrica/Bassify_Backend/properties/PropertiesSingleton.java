@@ -7,8 +7,11 @@ import java.util.Properties;
 import es.metrica.Bassify_Backend.models.logic.toolbox.AccesToken;
 
 public class PropertiesSingleton {
+	
 	protected static Properties p;
+	
 	public static Properties getProperties() {
+		
 		if(p == null) {
 			p = new Properties();
 			p = new Properties();
@@ -20,4 +23,5 @@ public class PropertiesSingleton {
 		}
 		return p;
 	}
+	
 }

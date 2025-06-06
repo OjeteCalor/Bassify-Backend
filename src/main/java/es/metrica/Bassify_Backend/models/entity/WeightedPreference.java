@@ -1,11 +1,13 @@
 package es.metrica.Bassify_Backend.models.entity;
 
-import es.metrica.Bassify_Backend.models.dto.WeightedPreferenceDTO;
+import java.util.Objects;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -16,16 +18,22 @@ public class WeightedPreference {
 	private String genre;
 	private Long likedTracksCount;
 	private Long listenedTracksCount;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "user_id")
 	private User user;
 	
 	public WeightedPreference() {}
 
-	public WeightedPreference(WeightedPreferenceDTO a) {
-		this.genre = a.getGenre();
-		this.likedTracksCount = a.getLikedTracksCount();
-		this.listenedTracksCount = a.getListenedTracksCount();
-		this.user = new User(a.getUser());
+	public WeightedPreference(Long preferenceId, String genre, Long likedTracksCount, Long listenedTracksCount,
+			User user) {
+		super();
+		this.preferenceId = preferenceId;
+		this.genre = genre;
+		this.likedTracksCount = likedTracksCount;
+		this.listenedTracksCount = listenedTracksCount;
+		this.user = user;
+		
+		user.getPreferences().add(this);
 	}
 
 	public Long getPreferenceId() {
@@ -68,5 +76,27 @@ public class WeightedPreference {
 		this.user = user;
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(genre, user);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		WeightedPreference other = (WeightedPreference) obj;
+		return Objects.equals(genre, other.genre) && Objects.equals(user, other.user);
+	}
+
+	@Override
+	public String toString() {
+		return "WeightedPreference [preferenceId=" + preferenceId + ", genre=" + genre + ", likedTracksCount="
+				+ likedTracksCount + ", listenedTracksCount=" + listenedTracksCount + ", user=" + user.getUserId() + "]";
+	}
 	
 }
