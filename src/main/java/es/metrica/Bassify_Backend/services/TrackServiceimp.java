@@ -84,15 +84,17 @@ public class TrackServiceimp implements TrackService {
 												.findFirst()
 												.orElseThrow();
 					
-					if(trackDto.isLiked())
-						w.setLikedTracksCount(w.getLikedTracksCount()+1);
+					if(!trackDto.isLiked()) w.setLikedTracksCount(w.getLikedTracksCount()+1);
+					else w.setLikedTracksCount(w.getLikedTracksCount()+3);
+					
 					w.setListenedTracksCount(w.getListenedTracksCount()+1);	
 					
 				} else {				
 					w = new WeightedPreference(null, genre, 0L, 0L, user);
 					
-					if(trackDto.isLiked())
-						w.setLikedTracksCount(w.getLikedTracksCount()+1);					
+					if(!trackDto.isLiked()) w.setLikedTracksCount(w.getLikedTracksCount()+1);
+					else w.setLikedTracksCount(w.getLikedTracksCount()+3);
+					
 					w.setListenedTracksCount(w.getListenedTracksCount()+1);
 					
 					user.getPreferences().add(w);
