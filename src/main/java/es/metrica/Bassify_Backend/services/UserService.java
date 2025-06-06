@@ -7,5 +7,5 @@ import es.metrica.Bassify_Backend.models.dto.UserLoginDTO;
 
 public interface UserService {
 	public ResponseEntity<UserLoginDTO> login(UserDTO userDto);
-	public ResponseEntity<UserDTO> createPreference(UserDTO userDto);
+	public ResponseEntity<Void> createPreference(UserDTO userDto);
 }

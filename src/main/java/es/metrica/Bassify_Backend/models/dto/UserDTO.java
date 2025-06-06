@@ -2,9 +2,7 @@ package es.metrica.Bassify_Backend.models.dto;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-import es.metrica.Bassify_Backend.models.entity.User;
 
 public class UserDTO {
 	
@@ -16,12 +14,6 @@ public class UserDTO {
 	public UserDTO() {
 		listenedTracks = new HashSet<>();
 		preferences = new HashSet<>();
-	}
-	
-	public UserDTO(User user) {
-		this.spotifyId = user.getSpotifyId();
-		this.listenedTracks = user.getListenedTracks().stream().map(a -> new TrackDTO(a)).collect(Collectors.toSet());
-		this.preferences = user.getPreferences().stream().map(a -> new WeightedPreferenceDTO(a)).collect(Collectors.toSet());
 	}
 
 	public String getSpotifyId() {
