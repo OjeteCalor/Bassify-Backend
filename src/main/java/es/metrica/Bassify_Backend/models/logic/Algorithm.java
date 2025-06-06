@@ -1,6 +1,5 @@
 package es.metrica.Bassify_Backend.models.logic;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -17,7 +16,16 @@ public class Algorithm {
 	}};
 	
 	public static List<TrackDTO> getRandomTracks(){
-		return getTracks(DEFAULT_PREFERENCES, new Random().nextInt(0, 1000));
+		List<TrackDTO> tracks = new java.util.LinkedList<>();
+		for (SearchQuery q : createQuerys(DEFAULT_PREFERENCES, DEFAULT_QUANTITY)) {
+			
+			tracks.addAll(new TrackRequest().getTracks(
+					q.genre,
+					q.limit.intValue(),
+					new Random().nextInt(0, 1000)
+				));
+		}
+		return tracks;
 	}
 	
 	public static List<TrackDTO> getTracks(){
@@ -29,15 +37,53 @@ public class Algorithm {
 	}
 	
 	public static List<TrackDTO> getTracks(Set<WeightedPreferenceDTO> preferences, int quantity){
-		List<TrackDTO> tracks = new LinkedList<>();
-		for(WeightedPreferenceDTO pref : preferences) {
+		List<TrackDTO> tracks = new java.util.LinkedList<>();
+		for (SearchQuery q : createQuerys(preferences, quantity)) {
+			
 			tracks.addAll(new TrackRequest().getTracks(
-					pref.getGenre(),
-					pref.getLikedTracksCount().intValue() / pref.getListenedTracksCount().intValue(),
-					pref.getListenedTracksCount().intValue()
+					q.genre,
+					q.limit.intValue(),
+					q.offset.intValue()
 				));
 		}
 		return tracks;
 	}
-}
+	
+	private static List<SearchQuery> createQuerys(Set<WeightedPreferenceDTO> preferences, int maxWeight) {
+		List<SearchQuery> querys = new java.util.LinkedList<>();
+		double total = preferences.stream()
+				.mapToDouble((p) -> (double) p.getLikedTracksCount() / (double) p.getListenedTracksCount())
+				.sum();
+		long totalWeight = 0;
+		for(WeightedPreferenceDTO pref : preferences) {
+			double weight = (double) pref.getLikedTracksCount() / (double) pref.getListenedTracksCount()
+					/total*maxWeight;
+			totalWeight += weight;
+			querys.addLast(new SearchQuery(pref.getGenre(),(long) weight,pref.getListenedTracksCount()));
+		}
+		if ((long) totalWeight != maxWeight) {
+			int randIdx = new Random().nextInt(0, querys.size());
+			querys.get(randIdx).setLimit((long)(querys.get(randIdx).getLimit() + maxWeight - totalWeight));
+		}
+			
+		return querys;
+	}
 
+}
+class SearchQuery {
+	String genre;
+	Long limit;
+	Long offset;
+	public SearchQuery(String genre, Long limit, Long offset) {
+		super();
+		this.genre = genre;
+		this.limit = limit;
+		this.offset = offset;
+	}
+	public Long getLimit() {
+		return limit;
+	}
+	public void setLimit(Long limit) {
+		this.limit = limit;
+	}
+}
