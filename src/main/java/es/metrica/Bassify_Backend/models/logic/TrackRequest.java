@@ -67,11 +67,6 @@ public class TrackRequest {
 	}
 	
 	public static List<TrackDTO> fillSeveralArtist(List<TrackDTO> tracks) {
-		System.out.println(tracks);
-		System.out.println(tracks.stream()
-					.map((t) -> t.getArtist().getSpotifyId())
-					.toList());
-		
 		Optional<List<ArtistDTO>> artistListOp = new ArtistRequest().getSeveralArtists(
 					tracks.stream()
 					.map((t) -> t.getArtist().getSpotifyId())

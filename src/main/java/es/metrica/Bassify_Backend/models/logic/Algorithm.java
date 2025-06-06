@@ -64,7 +64,8 @@ public class Algorithm {
 			double weight = (double) pref.getLikedTracksCount() / (double) pref.getListenedTracksCount()
 					/total*maxWeight;
 			totalWeight += weight;
-			querys.addLast(new SearchQuery(pref.getGenre(),(long) weight,pref.getListenedTracksCount()));
+			if (weight != 0)
+				querys.addLast(new SearchQuery(pref.getGenre(),(long) weight,pref.getListenedTracksCount()));
 		}
 		if ((long) totalWeight != maxWeight) {
 			int randIdx = new Random().nextInt(0, querys.size());
