@@ -21,7 +21,6 @@ public class Algorithm {
 	public static List<TrackDTO> getRandomTracks(){
 		List<TrackDTO> tracks = new java.util.LinkedList<>();
 		for (SearchQuery q : createQuerys(DEFAULT_PREFERENCES, DEFAULT_QUANTITY)) {
-			System.out.println(q.limit + "Limit");
 			tracks.addAll(new TrackRequest().getTracks(
 					q.genre,
 					q.limit.intValue(),
