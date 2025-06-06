@@ -1,9 +1,7 @@
 package es.metrica.Bassify_Backend.models.dto;
 
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import es.metrica.Bassify_Backend.models.entity.Artist;
 
 public class ArtistDTO {
@@ -15,11 +13,11 @@ public class ArtistDTO {
 	public ArtistDTO() {}
 
 	public ArtistDTO(Artist artist) {
-		this.spotifyId = artist.getSpotifyId();
-		this.name = artist.getName();
+		this.artistSpotifyId = artist.getSpotifyId();
+		this.artistName = artist.getName();
 		this.genres = artist.getGenres();
-	}
-
+  }
+  
 	public String getSpotifyId() {
 		return spotifyId;
 	}
