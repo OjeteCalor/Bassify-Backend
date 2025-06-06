@@ -2,6 +2,7 @@ package es.metrica.Bassify_Backend.models.logic;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,7 @@ import es.metrica.Bassify_Backend.models.dto.SearchDTO;
 import es.metrica.Bassify_Backend.models.dto.TrackDTO;
 import es.metrica.Bassify_Backend.models.logic.toolbox.AccesToken;
 import es.metrica.Bassify_Backend.models.logic.toolbox.DeezerPreview;
+import es.metrica.Bassify_Backend.models.values.Genre;
 import es.metrica.Bassify_Backend.properties.PropertiesSingleton;
 
 public class TrackRequest {
@@ -77,7 +79,17 @@ public class TrackRequest {
 		}
 		
 		for( int i = 0; i < artistList.size(); i++) {
-			tracks.get(i).setArtist(artistList.get(i));
+			ArtistDTO artist = artistList.get(i);
+			List<String> parsedGenres = new LinkedList<>();
+			for (String genre : artist.getGenres()) {
+				for(Genre enumGenre : Genre.values()) {
+					if (genre.contains(enumGenre.toString()) && !parsedGenres.contains(enumGenre.toString()))
+						parsedGenres.add(enumGenre.toString());
+				}
+			}
+			
+			artist.setGenres(parsedGenres);
+			tracks.get(i).setArtist(artist);
 		}
 		return tracks;
 	}
