@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import es.metrica.Bassify_Backend.models.dto.TrackDTO;
 import es.metrica.Bassify_Backend.services.TrackService;
-import es.metrica.Bassify_Backend.services.TrackServiceimp;
 
 @Controller
 @RequestMapping("api/v1/tracks")
@@ -46,6 +45,12 @@ public class TrackController {
 	@GetMapping("/genres")
 	public ResponseEntity<Map<String, Object>> genres(){
 		return trackService.genres();
+	}
+	
+	@PostMapping("/initialize/{user_id}")
+	public ResponseEntity<Void> initializePreferences(@PathVariable(name = "user_id") String spotifyId, 
+																@RequestBody List<String> genres) {
+		return trackService.initializePreferences(spotifyId, genres);
 	}
 	
 }

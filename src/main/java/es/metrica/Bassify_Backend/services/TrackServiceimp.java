@@ -2,9 +2,11 @@ package es.metrica.Bassify_Backend.services;
 
 import java.util.Arrays; 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -122,6 +124,26 @@ public class TrackServiceimp implements TrackService {
 									.toList();
 		map.put("genres", genres);
 		return new ResponseEntity<>(map, HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<Void> initializePreferences(String spotifyId, List<String> genres) {
+		
+		Optional<User> userOpt = userRepository.findBySpotifyId(spotifyId);
+		
+		if(!userOpt.isPresent()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		User user = userOpt.get();
+		
+		Set<WeightedPreference> weightedPreferenceSet = new HashSet<>();
+		for(String genre : genres) {
+			WeightedPreference w = new WeightedPreference(null, genre, 0L, 0L, user);
+			weightedPreferenceSet.add(w);
+		}
+		user.addPreferences(weightedPreferenceSet);
+		userRepository.save(user);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 }

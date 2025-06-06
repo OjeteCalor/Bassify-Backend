@@ -9,6 +9,7 @@ public enum Genre {
 	Trap,
 	Latina,
 	Indie,
+	Flamenco,
 	Metal,
 	Jazz,
 	House,
