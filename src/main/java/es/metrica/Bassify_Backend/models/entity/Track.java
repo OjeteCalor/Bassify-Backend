@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -16,6 +17,7 @@ public class Track {
 	private String name;
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Artist artist;
+	@Lob
 	private String previewURL;
 	private String imageURL;
 
